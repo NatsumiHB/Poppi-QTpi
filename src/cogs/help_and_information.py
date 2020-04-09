@@ -8,7 +8,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-        self.help_embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple())
+        self.help_embed = discord.Embed(title=f"Help for {bot.user.display_name}", color=discord.Color.purple())
         for cog in self.bot.cogs:
             commands = ""
             for command in self.bot.get_cog(cog).get_commands():
