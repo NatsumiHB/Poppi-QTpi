@@ -32,6 +32,7 @@ async def on_command_error(ctx, error):
         return await ctx.send("Please provide all required arguments! (Consult help for usage information)")
 
 
+bot.remove_command("help")
 bot.add_cog(HelpAndInformation(bot))
 bot.add_cog(Moderation(bot))
 bot.add_cog(Fun(bot))
