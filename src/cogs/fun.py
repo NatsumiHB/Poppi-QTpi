@@ -25,7 +25,9 @@ class Fun(commands.Cog, name="Fun"):
 
     @command(help="Flip a coin!")
     async def flip(self, ctx):
-        await ctx.send(f"Heads! <@{ctx.author.user.id}>" if random.randint(0, 1) == 0 else f"Tails! <@{ctx.author.user.id}>")
+        number = random.randint(0, 1)
+
+        await ctx.send(f"Heads! <@{ctx.author.id}>" if number == 0 else f"Tails! <@{ctx.author.user.id}>")
 
     # Lots of repeated code for RP GIF commands
     @command(help="Hug someone")

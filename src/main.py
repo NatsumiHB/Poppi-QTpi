@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from discord.ext import commands
 import discord
 import logging
@@ -10,14 +12,12 @@ from cogs.fun import Fun
 # Set up logging
 coloredlogs.install(level="WARNING", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
-bot = commands.Bot(command_prefix=config.prefix)
+bot = commands.Bot(command_prefix=config.prefix, activity=discord.Game(name="poppi help"))
 
 
 @bot.event
 async def on_ready():
     logging.warning(f"{bot.user.name} running!")
-
-    await bot.change_presence(activity=discord.Game(name="poppi help"))
 
 
 @bot.event
