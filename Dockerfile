@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM gorialis/discord.py:3.8.1-alpine-master-full
 COPY ./ /srv/poppi/
 WORKDIR /srv/poppi/
 RUN apk add build-base

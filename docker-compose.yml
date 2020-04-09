@@ -4,6 +4,8 @@ services:
     poppi:
         image: natsuwumi/poppi:latest
         build: .
+        volumes:
+        - ./poppi.log:/srv/poppi/poppi.log
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}
           - PREFIX="poppi "
