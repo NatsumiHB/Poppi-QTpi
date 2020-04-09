@@ -31,6 +31,9 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         return await ctx.send("Please provide all required arguments! (Consult help for usage information)")
 
+    else:
+        return await ctx.send(error)
+
 
 bot.remove_command("help")
 bot.add_cog(HelpAndInformation(bot))
