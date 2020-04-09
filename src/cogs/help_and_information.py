@@ -8,20 +8,6 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-        self.help_embed = discord.Embed(title=f"Help for {bot.display_name}", color=discord.Color.purple())
-        for cog in self.bot.cogs:
-            commands = ""
-            for command in self.bot.get_cog(cog).get_commands():
-                commands += f"{command.name} {command.usage} -> {command.help}\n"
-            self.help_embed.add_field(name=cog, value=commands, inline=False)
-        self.help_embed.set_thumbnail(url=self.bot.user.avatar_url)
-
-    @command(help="Display this", usage="")
-    async def help(self, ctx):
-        self.help_embed.set_footer(text=f"{self.bot.user.display_name} | Ping: {round(self.bot.latency, 1)}ms | ? means optional")
-
-        await ctx.send(embed=self.help_embed)
-
     @command(help="Get someone's avatar", usage="[mention]")
     async def avatar(self, ctx, user: discord.User):
         embed = discord.Embed(color=discord.Color.purple())
