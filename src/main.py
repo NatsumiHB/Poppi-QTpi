@@ -20,7 +20,8 @@ bot = commands.Bot(command_prefix=os.getenv("PREFIX"), activity=discord.Game(nam
 
 @bot.event
 async def on_ready():
-    logging.warning(f"{bot.user.name} running!")
+    owner_user = bot.get_user(bot.owner_id)
+    logging.warning(f"{bot.user.name} running!\nOwner is {owner_user.display_name}!\nPrefix: '{os.getenv('PREFIX')}'")
 
 
 @bot.event
@@ -36,7 +37,7 @@ async def on_command_error(ctx, error):
 
     # Ignore errors
     else:
-        return
+        return await ctx.send(error.message)
 
 
 bot.remove_command("help")
