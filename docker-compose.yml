@@ -6,3 +6,5 @@ services:
         build: .
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}
+          - PREFIX="poppi "
+          - VERSION="1.3"

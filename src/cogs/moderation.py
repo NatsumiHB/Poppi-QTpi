@@ -7,7 +7,7 @@ class Moderation(commands.Cog, name="Moderation"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @command(help="Ban a user")
+    @command(help="Ban a user", usage="[mention] [reason?]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
     async def ban(self, ctx, user: discord.User, *, reason="None"):
@@ -22,7 +22,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed, delete_after=5)
 
-    @command(help="Softban a user")
+    @command(help="Softban a user", usage="[mention] [reason?]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
     async def softban(self, ctx, user: discord.User, *, reason="None"):
@@ -38,7 +38,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed, delete_after=5)
 
-    @command(help="Kick a user")
+    @command(help="Kick a user", usage="[mention] [reason?]")
     @guild_only()
     @has_guild_permissions(kick_members=True)
     async def kick(self, ctx, user: discord.User, *, reason="None"):
@@ -53,7 +53,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed, delete_after=5)
 
-    @command(help="Clear up to 100 messages")
+    @command(help="Clear up to 100 messages", usage="[amount]")
     @guild_only()
     @has_guild_permissions(manage_messages=True)
     async def clear(self, ctx, messages: int):

@@ -1,4 +1,2 @@
-make owner commands
-add usage
 set up CD/CI to automatically build the docker image and update on my server
 make help string generate upon start, not everytime command is invoked
