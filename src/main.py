@@ -18,8 +18,8 @@ bot = commands.Bot(command_prefix=os.getenv("PREFIX"), activity=discord.Game(nam
 
 @bot.event
 async def on_ready():
-    owner_user = bot.get_user(bot.owner_id)
-    logging.warning(f"{bot.user.name} running!\nOwner is {owner_user.display_name}!\nPrefix: '{os.getenv('PREFIX')}'")
+    logging.warning(f"{bot.user.name} running!")
+    logging.warning(f"Prefix is '{os.getenv('PREFIX')}'")
 
 
 @bot.event
