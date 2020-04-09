@@ -4,4 +4,4 @@ CMD git clone https://github.com/NatsumiHB/Poppi-QTpi
 WORKDIR /srv/Poppi-QTpi/
 CMD chmod +x ./src/main.py
 RUN pip install -r requirements.txt
-CMD python ./src/main.py
+CMD ./src/main.py
