@@ -2,7 +2,7 @@ version: "3"
 
 services:
     poppi:
-        image: natsuwumi/poppi
+        image: natsuwumi/poppi:latest
         build: .
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}

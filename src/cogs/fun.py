@@ -12,8 +12,7 @@ def get_ram_gif(kind: str):
 
 def get_ram_embed(kind, verb, author: discord.Member, member: discord.Member):
     name = "themselves" if member == author else member.display_name
-    embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.green())
-    embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.green())
+    embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.purple())
     embed.set_image(url=get_ram_gif(kind))
     return embed
 

@@ -1,1 +1,0 @@
-git pull & docker-compose down && docker pull natsuwumi/poppi && docker-compose up -d && docker logs -f poppiqtpi_poppi_1
