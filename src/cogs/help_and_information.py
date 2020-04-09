@@ -8,8 +8,6 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-        print("Init")
-
     @command(help="Display this")
     async def help(self, ctx):
         embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple())
