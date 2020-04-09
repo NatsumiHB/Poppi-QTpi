@@ -12,14 +12,13 @@ import os
 # Set up logging
 coloredlogs.install(level="WARNING", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
-print(os.getenv("PREFIX"))
 bot = commands.Bot(command_prefix=os.getenv("PREFIX"), activity=discord.Game(name="poppi help"))
 
 
 @bot.event
 async def on_ready():
     logging.warning(f"{bot.user.name} running!")
-
+    logging.warning("owo " + os.getenv("PREFIX"))
 
 @bot.event
 async def on_command_error(ctx, error):
