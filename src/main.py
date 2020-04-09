@@ -8,6 +8,7 @@ import coloredlogs
 from cogs.help_and_information import HelpAndInformation
 from cogs.moderation import Moderation
 from cogs.fun import Fun
+import os
 
 # Set up logging
 coloredlogs.install(level="WARNING", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
@@ -36,4 +37,4 @@ bot.remove_command("help")
 bot.add_cog(HelpAndInformation(bot))
 bot.add_cog(Moderation(bot))
 bot.add_cog(Fun(bot))
-bot.run(config.token)
+bot.run(os.getenv("POPPI_TOKEN"))
