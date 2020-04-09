@@ -8,6 +8,8 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
+        print("Init")
+
     @command(help="Display this")
     async def help(self, ctx):
         embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple())
@@ -34,7 +36,6 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
     @command(help="Information about me")
     async def info(self, ctx):
-        print("Called!")
         embed = discord.Embed(color=discord.Color.purple(), description=f"I'm on {len(self.bot.guilds)} servers!")
         embed.set_author(name=f"Information about {self.bot.user.display_name}", icon_url=self.bot.user.avatar_url)
         embed.set_footer(text=f"Version {os.getenv('VERSION')}")
