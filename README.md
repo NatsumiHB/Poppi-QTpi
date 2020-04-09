@@ -14,3 +14,5 @@ To use Python directly, make sure you have Python 3.8 or newer and then follow t
 To use Docker (the recommended way of using Poppi QTπ) follow these steps:
 - Set the `POPPI_TOKEN` environment variable to the bot's token and your Discord ID
 - Run `docker-compose up -d`
+
+You can use the update.sh script in order to update the bot without using something like Watchtower (only works when using Docker and docker-compose)
