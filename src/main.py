@@ -13,13 +13,13 @@ import sys
 # Set up logging
 coloredlogs.install(level="WARNING", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
-bot = commands.Bot(command_prefix=os.getenv("PREFIX"), activity=discord.Game(name="poppi help"))
+bot = commands.Bot(command_prefix=os.getenv("POPPI_PREFIX"), activity=discord.Game(name="poppi help"))
 
 
 @bot.event
 async def on_ready():
     logging.warning(f"{bot.user.name} running!")
-    logging.warning(f"Prefix is '{os.getenv('PREFIX')}'")
+    logging.warning(f"Prefix is '{os.getenv('POPPI_PREFIX')}'")
 
 
 @bot.event
