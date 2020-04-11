@@ -1,4 +1,5 @@
 # Poppi-QTpi
+[![Actions Status](https://github.com/NatsumiHB/Poppi-QTpi/workflows/Build%20and%20Push%20to%20Docker/badge.svg)](https://github.com/NatsumiHB/Poppi-QTpi/actions)
 Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and much more!
 
 Current Version: 1.3
