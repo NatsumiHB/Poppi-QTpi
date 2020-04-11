@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.10
+FROM python:3.9-alpine
 COPY ./ /srv/poppi/
 WORKDIR /srv/poppi/
 RUN apk add build-base
