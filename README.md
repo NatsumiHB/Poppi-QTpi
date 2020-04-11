@@ -15,5 +15,3 @@ To use Poppi QTπ, follow these steps:
 #### To use Docker follow these steps:
 1. Set the same environmental variables as in the Python guide
 2. Run `docker-compose up -d`
-
-**The standard docker-compose comes with watchtower to automatically update your Poppi QTπ instance when a new version is released**
