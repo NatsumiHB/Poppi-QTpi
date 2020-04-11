@@ -14,13 +14,14 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 
         for cog in self.bot.cogs:
-            commands = ""
-            for command in self.bot.get_cog(cog).get_commands():
-                commands += f"{command.name} -> {command.help}\n"
+            if cog != "TopGG":
+                commands = ""
+                for command in self.bot.get_cog(cog).get_commands():
+                    commands += f"{command.name} -> {command.help}\n"
 
-            embed.add_field(name=cog, value=commands, inline=False)
+                embed.add_field(name=cog, value=commands, inline=False)
 
-        embed.set_footer(text=f"{self.bot.user.display_name} | Ping: {round(self.bot.latency, 1)}ms")
+        embed.set_footer(text=f"{self.bot.user.display_name} | Version {os.getenv('POPPI_VERSION')}")
 
         await ctx.send(embed=embed)
 
