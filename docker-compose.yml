@@ -7,5 +7,5 @@ services:
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}
           - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
-          - PREFIX=${POPPI_PREFIX}
-          - VERSION=${POPPI_VERSION}
+          - POPPI_PREFIX=${POPPI_PREFIX}
+          - POPPI_VERSION=${POPPI_VERSION}
