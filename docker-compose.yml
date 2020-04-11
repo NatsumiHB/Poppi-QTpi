@@ -8,4 +8,4 @@ services:
           - POPPI_TOKEN=${POPPI_TOKEN}
           - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
           - POPPI_PREFIX=${POPPI_PREFIX}
-          - POPPI_VERSION=${POPPI_VERSION}
+          - POPPI_VERSION="1.3"
