@@ -18,7 +18,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't ban {user.display_name}!\n{str(e)}", color=discord.Color.green())
+            embed = discord.Embed(description=f"Couln't ban {user.display_name}!\n{str(e)}", color=discord.Color.red())
 
             await ctx.send(embed=embed, delete_after=5)
 
@@ -34,7 +34,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't softban {user.display_name}!\n{str(e)}", color=discord.Color.green())
+            embed = discord.Embed(description=f"Couln't softban {user.display_name}!\n{str(e)}", color=discord.Color.red())
 
             await ctx.send(embed=embed, delete_after=5)
 
@@ -49,7 +49,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't kick {user.display_name}!\n{str(e)}", color=discord.Color.green())
+            embed = discord.Embed(description=f"Couln't kick {user.display_name}!\n{str(e)}", color=discord.Color.red())
 
             await ctx.send(embed=embed, delete_after=5)
 

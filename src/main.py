@@ -12,7 +12,7 @@ import os
 import dbl
 
 # Set up logging
-coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
+coloredlogs.install(level="WARNING", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
 bot = commands.Bot(command_prefix=os.getenv("POPPI_PREFIX"), activity=discord.Game(name="poppi help"))
 
@@ -39,7 +39,7 @@ async def on_command_error(ctx, error):
 
     # Ignore errors
     else:
-        return logging.warning(f"Error: {error.message}")
+        return logging.warning(f"Error: {error}")
 
 bot.remove_command("help")
 bot.add_cog(HelpAndInformation(bot))
