@@ -12,7 +12,7 @@ import os
 import dbl
 
 # Set up logging
-coloredlogs.install(level="WARNING", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
+coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
 bot = commands.Bot(command_prefix=os.getenv("POPPI_PREFIX"), activity=discord.Game(name="poppi help"))
 
