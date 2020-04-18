@@ -41,6 +41,7 @@ async def on_command_error(ctx, error):
     else:
         return logging.warning(f"Error: {error}")
 
+
 bot.remove_command("help")
 bot.add_cog(HelpAndInformation(bot))
 bot.add_cog(Moderation(bot))

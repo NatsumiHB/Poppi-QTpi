@@ -7,6 +7,8 @@ class Moderation(commands.Cog, name="Moderation"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
+    # Moderation commands
+    # Every command tries to perform the mod action and if that fails it will send an error message
     @command(help="Ban a user", usage="[mention] [reason?]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
@@ -18,7 +20,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't ban {user.display_name}!\n{str(e)}", color=discord.Color.red())
+            embed = discord.Embed(description=f"Couldn't ban {user.display_name}!\n{str(e)}", color=discord.Color.red())
 
             await ctx.send(embed=embed, delete_after=5)
 
@@ -34,7 +36,8 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't softban {user.display_name}!\n{str(e)}", color=discord.Color.red())
+            embed = discord.Embed(description=f"Couldn't softban {user.display_name}!\n{str(e)}",
+                                  color=discord.Color.red())
 
             await ctx.send(embed=embed, delete_after=5)
 
@@ -49,7 +52,8 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't kick {user.display_name}!\n{str(e)}", color=discord.Color.red())
+            embed = discord.Embed(description=f"Couldn't kick {user.display_name}!\n{str(e)}",
+                                  color=discord.Color.red())
 
             await ctx.send(embed=embed, delete_after=5)
 
@@ -69,6 +73,6 @@ class Moderation(commands.Cog, name="Moderation"):
 
             await ctx.send(embed=embed, delete_after=5)
         except Exception as e:
-            embed = discord.Embed(description=f"Couln't clear channel!\n{str(e)}", color=discord.Color.green())
+            embed = discord.Embed(description=f"Couldn't clear channel!\n{str(e)}", color=discord.Color.green())
 
             await ctx.send(embed=embed, delete_after=5)

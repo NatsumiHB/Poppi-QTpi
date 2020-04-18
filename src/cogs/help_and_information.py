@@ -13,6 +13,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple())
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 
+        # Loop through all commands and cogs to generate help
         for cog in self.bot.cogs:
             if cog != "TopGG":
                 commands = ""
