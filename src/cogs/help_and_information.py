@@ -43,7 +43,6 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         embed = discord.Embed(color=discord.Color.purple(), description=f"I'm on {len(self.bot.guilds)} servers"
                                                                         f"!\nVersion {os.getenv('POPPI_VERSION')}")
         embed.set_author(name=f"Information about {self.bot.user.display_name}", icon_url=self.bot.user.avatar_url)
-        embed.set_footer(text=f"{self.bot.user.display_name}")
 
         await ctx.send(embed=embed)
 
