@@ -41,52 +41,52 @@ class Fun(commands.Cog, name="Fun"):
         return embed
 
     # Lots of repeated code for RP GIF commands
-    @command(help="Hug someone", usage="[mention|string|none]")
+    @command(help="Hug someone", usage="[mention|string|None]")
     @guild_only()
     async def hug(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("hug", "hugs", ctx.author, member))
 
-    @command(help="Pat someone", usage="[mention|string|none]")
+    @command(help="Pat someone", usage="[mention|string|None]")
     @guild_only()
     async def pat(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("pat", "pats", ctx.author, member))
 
-    @command(help="Slap someone", usage="[mention|string|none]")
+    @command(help="Slap someone", usage="[mention|string|None]")
     @guild_only()
     async def slap(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("slap", "slaps", ctx.author, member))
 
-    @command(help="Kiss someone", usage="[mention|string|none]")
+    @command(help="Kiss someone", usage="[mention|string|None]")
     @guild_only()
     async def kiss(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("kiss", "kisses", ctx.author, member))
 
-    @command(help="Lewd someone", usage="[mention|string|none]")
+    @command(help="Lewd someone", usage="[mention|string|None]")
     @guild_only()
     async def lewd(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("lewd", "lewds", ctx.author, member))
 
-    @command(help="Lick someone", usage="[mention|string|none]")
+    @command(help="Lick someone", usage="[mention|string|None]")
     @guild_only()
     async def lick(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("lick", "licks", ctx.author, member))
 
-    @command(help="Cuddle someone", usage="[mention|string|none]")
+    @command(help="Cuddle someone", usage="[mention|string|None]")
     @guild_only()
     async def cuddle(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("cuddle", "cuddles", ctx.author, member))
 
-    @command(help="OwO at someone", usage="[mention|string|none]")
+    @command(help="OwO at someone", usage="[mention|string|None]")
     @guild_only()
     async def owo(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("owo", "owos at", ctx.author, member))
 
-    @command(help="Meow at someone", usage="[mention|string|none]")
+    @command(help="Meow at someone", usage="[mention|string|None]")
     @guild_only()
     async def meow(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("nyan", "meows at", ctx.author, member))
 
-    @command(help="Nom someone", usage="[mention|string|none]")
+    @command(help="Nom someone", usage="[mention|string|None]")
     @guild_only()
     async def nom(self, ctx, *, member: typing.Union[discord.Member, str] = None):
         await ctx.send(embed=await self.get_ram_embed("nom", "noms", ctx.author, member))
