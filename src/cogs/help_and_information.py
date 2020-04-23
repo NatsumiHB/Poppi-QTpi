@@ -27,7 +27,11 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         await ctx.send(embed=embed)
 
     @command(help="Get someone's avatar")
-    async def avatar(self, ctx, user: discord.User):
+    async def avatar(self, ctx, user: discord.User = None):
+        # Return avatar of author if no user is given
+        if user is None:
+            user = ctx.author
+
         embed = discord.Embed(color=discord.Color.purple())
         embed.set_author(name=f"{user.display_name}'s avatar", url=str(user.avatar_url))
         embed.set_image(url=user.avatar_url)

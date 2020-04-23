@@ -61,6 +61,7 @@ class Moderation(commands.Cog, name="Moderation"):
     @guild_only()
     @has_guild_permissions(manage_messages=True)
     async def clear(self, ctx, messages: int):
+        # Check for boundaries (no more than 100 msgs deleted at once)
         if messages > 100:
             embed = discord.Embed(description="Please specify an amount <= 100!", color=discord.Color.green())
 
