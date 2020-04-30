@@ -1,4 +1,4 @@
-requests~=2.23.0
 coloredlogs~=14.0
 discord.py
 dblpy
+psutil

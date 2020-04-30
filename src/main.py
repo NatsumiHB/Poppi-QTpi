@@ -45,6 +45,6 @@ async def on_command_error(ctx, error):
 bot.remove_command("help")
 bot.add_cog(HelpAndInformation(bot))
 bot.add_cog(Moderation(bot))
-bot.add_cog(Fun(bot))
+# bot.add_cog(Fun(bot))
 bot.add_cog(TopGG(bot))
 bot.run(os.getenv("POPPI_TOKEN"))

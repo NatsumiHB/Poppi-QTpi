@@ -40,8 +40,8 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
     @command(help="Information about me")
     async def info(self, ctx):
-        embed = discord.Embed(color=discord.Color.purple(), description=f"I'm on {len(self.bot.guilds)} servers"
-                                                                        f"!\nVersion {os.getenv('POPPI_VERSION')}")
+        embed = discord.Embed(color=discord.Color.purple(), description=f"I'm on {len(self.bot.guilds)} servers!\n"
+                                                                        f"Version {os.getenv('POPPI_VERSION')}")
         embed.set_author(name=f"Information about {self.bot.user.display_name}", icon_url=self.bot.user.avatar_url)
 
         await ctx.send(embed=embed)
