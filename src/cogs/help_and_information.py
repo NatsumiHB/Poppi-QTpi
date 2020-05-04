@@ -49,8 +49,8 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
     @command(help="Send a support DM to my creator")
     async def support(self, ctx, *, msg):
-        user = self.bot.get_user(self.bot.owner_id)
-        await user.send(f"Support request from {ctx.author.display_name}#{ctx.author.discriminator}:\n\n```{msg}```")
+        user = await self.bot.fetch_user(self.bot.owner_id)
+        await user.send(f"Support request from {ctx.author.display_name}#{ctx.author.discriminator}:\n\n{msg}")
         embed = discord.Embed(description="Success!", color=discord.Color.green())
 
         await ctx.send(embed=embed)

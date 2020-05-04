@@ -14,7 +14,9 @@ import dbl
 # Set up logging
 coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
-bot = commands.Bot(command_prefix=os.getenv("POPPI_PREFIX"), activity=discord.Game(name="poppi help"))
+bot = commands.Bot(command_prefix=os.getenv("POPPI_PREFIX"),
+                   activity=discord.Game(name="poppi help"),
+                   owner_id=os.getenv("POPPI_OWNER_ID"))
 
 
 @bot.event
