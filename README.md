@@ -3,7 +3,7 @@
 
 Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and much more!
 
-**Current Version: 1.5**
+**Current Version: 1.6**
 
 ## Usage
 To use Poppi QTπ, follow these steps:
