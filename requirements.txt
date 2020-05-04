@@ -1,4 +1,4 @@
 coloredlogs~=14.0
 discord.py
-requests
+requests~=2.23.0
 dblpy

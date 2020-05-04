@@ -2,6 +2,7 @@ from discord.ext import commands
 from discord.ext.commands import command
 import discord
 import os
+from fetched_user import FetchedUser
 
 
 class HelpAndInformation(commands.Cog, name="Help and Information"):
@@ -27,7 +28,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         await ctx.send(embed=embed)
 
     @command(help="Get someone's avatar", usage="[mention|None]")
-    async def avatar(self, ctx, user: discord.User = None):
+    async def avatar(self, ctx, user: FetchedUser = None):
         # Return avatar of author if no user is given
         if user is None:
             user = ctx.author
