@@ -11,7 +11,7 @@ To use Poppi QTπ, follow these steps:
 1. Install required pip libraries by doing `pip install -r requirements.txt` in the root folder
 2. Set the `POPPI_TOKEN, POPPI_DBL_TOKEN, POPPI_PREFIX, POPPI_VERSION` environment variables to the bot's token,
 your Discord Bot List token, the prefix you want and the current version
-3. Run the bot with `python ./src/main.py`
+3. Run the bot with `pipenv run python ./src/main.py`
 
 #### To use Docker follow these steps:
 1. Set the same environmental variables as in the Python guide
