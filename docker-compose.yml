@@ -7,5 +7,5 @@ services:
           - POPPI_TOKEN=${POPPI_TOKEN}
           - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
           - POPPI_PREFIX=${POPPI_PREFIX}
-          - POPPI_VERSION=1.6
+          - POPPI_COMMIT=71
           - POPPI_OWNER_ID=${POPPI_OWNER_ID}
