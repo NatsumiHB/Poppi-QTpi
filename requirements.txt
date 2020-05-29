@@ -1,3 +1,4 @@
-setuptools
-wheel
-pipenv
+discord-py
+coloredlogs
+requests
+dblpy

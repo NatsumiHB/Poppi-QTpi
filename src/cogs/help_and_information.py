@@ -23,8 +23,6 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
                 embed.add_field(name=cog, value=commands, inline=False)
 
-        embed.set_footer(text=f"{self.bot.user.display_name} | Version {os.getenv('POPPI_VERSION')}")
-
         await ctx.send(embed=embed)
 
     @command(help="Get someone's avatar", usage="[mention|None]")

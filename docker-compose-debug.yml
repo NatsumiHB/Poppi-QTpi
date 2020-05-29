@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+    poppi:
+        build: .
+        image: poppi:debug
+        environment:
+          - POPPI_TOKEN=${POPPI_TOKEN}
+          - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
+          - POPPI_PREFIX=${POPPI_PREFIX}
+          - POPPI_OWNER_ID=${POPPI_OWNER_ID}
