@@ -1,4 +1,3 @@
 discord-py
 coloredlogs
-requests
 dblpy

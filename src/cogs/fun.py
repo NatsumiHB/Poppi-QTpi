@@ -1,19 +1,19 @@
 from discord.ext import commands
 from discord.ext.commands import command, guild_only
 import discord
-import requests
+import aiohttp
 import typing
-
-
-async def get_ram_gif(kind: str):
-    res = requests.get(f"https://rra.ram.moe/i/r?type={kind}").json()
-    gif = res["path"]
-    return f"https://cdn.ram.moe/{gif[3:]}"
 
 
 class Fun(commands.Cog, name="Fun"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.client_session = aiohttp.ClientSession()
+
+    async def get_ram_gif(self, kind: str):
+        async with self.client_session.get(f"https://rra.ram.moe/i/r?type={kind}") as r:
+            res = await r.json()
+            return f"https://cdn.ram.moe/{res['path'][3:]}"
 
     async def get_ram_embed(self, kind, verb, author: discord.Member, member: typing.Union[discord.Member, str] = None):
         # Check who's being RP'd
@@ -37,7 +37,7 @@ class Fun(commands.Cog, name="Fun"):
             name = member
 
         embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.purple())
-        embed.set_image(url=await get_ram_gif(kind))
+        embed.set_image(url=await self.get_ram_gif(kind))
         return embed
 
     # Lots of repeated code for RP GIF commands
