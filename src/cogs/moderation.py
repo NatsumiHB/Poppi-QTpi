@@ -1,79 +1,49 @@
+import discord
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, has_guild_permissions
-import discord
+
+from poppi import success_embed, error_embed, Poppi
 
 
 class Moderation(commands.Cog, name="Moderation"):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: Poppi):
         self.bot = bot
 
     # Moderation commands
-    # Every command tries to perform the mod action and if that fails it will send an error message
-    @command(help="Ban a user", usage="[mention] [reason?]")
+    # Errors are handled by the error handler in /src/main.py
+    @command(help="Ban a user", usage="[member] [reason?]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
     async def ban(self, ctx, user: discord.Member, reason="None"):
-        try:
-            await ctx.guild.ban(user, reason=reason)
+        await ctx.guild.ban(user, reason=reason)
 
-            embed = discord.Embed(description="Success!", color=discord.Color.green())
+        await ctx.send(embed=success_embed())
 
-            await ctx.send(embed=embed)
-        except Exception as e:
-            embed = discord.Embed(description=f"Couldn't ban {user.display_name}!\n{str(e)}", color=discord.Color.red())
-
-            await ctx.send(embed=embed)
-
-    @command(help="Softban a user", usage="[mention] [reason?]")
+    @command(help="Softban a user", usage="[member] [reason?]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
     async def softban(self, ctx, user: discord.Member, reason="None"):
-        try:
-            await ctx.guild.ban(user, reason=reason)
-            await ctx.guild.unban(user, reason=reason)
+        await ctx.guild.ban(user, reason=reason)
+        await ctx.guild.unban(user, reason=reason)
 
-            embed = discord.Embed(description="Success!", color=discord.Color.green())
+        await ctx.send(embed=success_embed())
 
-            await ctx.send(embed=embed)
-        except Exception as e:
-            embed = discord.Embed(description=f"Couldn't softban {user.display_name}!\n{str(e)}",
-                                  color=discord.Color.red())
-
-            await ctx.send(embed=embed)
-
-    @command(help="Kick a user", usage="[mention] [reason?]")
+    @command(help="Kick a user", usage="[member] [reason?]")
     @guild_only()
     @has_guild_permissions(kick_members=True)
     async def kick(self, ctx, user: discord.Member, reason="None"):
-        try:
-            await ctx.guild.kick(user, reason=reason)
+        await ctx.guild.kick(user, reason=reason)
 
-            embed = discord.Embed(description="Success!", color=discord.Color.green())
-
-            await ctx.send(embed=embed)
-        except Exception as e:
-            embed = discord.Embed(description=f"Couldn't kick {user.display_name}!\n{str(e)}",
-                                  color=discord.Color.red())
-
-            await ctx.send(embed=embed)
+        await ctx.send(embed=success_embed())
 
     @command(help="Clear up to 100 messages", usage="[amount]")
     @guild_only()
     @has_guild_permissions(manage_messages=True)
-    async def clear(self, ctx, messages: int):
+    async def clear(self, ctx, amount: int):
         # Check for boundaries (no more than 100 msgs deleted at once)
-        if messages > 100:
-            embed = discord.Embed(description="Please specify an amount <= 100!", color=discord.Color.green())
+        if amount > 100:
+            return await ctx.send(embed=error_embed("Please specify an amount <= 100!"))
 
-            return await ctx.send(embed=embed)
+        await ctx.channel.purge(limit=amount)
 
-        try:
-            await ctx.channel.purge(limit=messages)
-
-            embed = discord.Embed(description="Success!", color=discord.Color.green())
-
-            await ctx.send(embed=embed, delete_after=10)
-        except Exception as e:
-            embed = discord.Embed(description=f"Couldn't clear channel!\n{str(e)}", color=discord.Color.green())
-
-            await ctx.send(embed=embed)
+        await ctx.send(embed=success_embed(), delete_after=10)

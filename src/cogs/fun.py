@@ -1,12 +1,15 @@
+import typing
+
+import aiohttp
+import discord
 from discord.ext import commands
 from discord.ext.commands import command, guild_only
-import discord
-import aiohttp
-import typing
+
+from poppi import Poppi
 
 
 class Fun(commands.Cog, name="Fun"):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: Poppi):
         self.bot = bot
         self.client_session = aiohttp.ClientSession()
 
