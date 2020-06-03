@@ -18,7 +18,6 @@ from poppi import Poppi, error_embed
 coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
 bot = Poppi(command_prefix=os.getenv("POPPI_PREFIX"),
-            case_insensitive=True,
             activity=discord.Game(name=f"{os.getenv('POPPI_PREFIX')}help"),
             owner_id=os.getenv("POPPI_OWNER_ID"))
 
