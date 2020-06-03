@@ -30,7 +30,7 @@ async def on_ready():
     # Log basic info
     logging.info(f"{bot.user.name} running!")
     logging.info(f"Prefix is \"{bot.command_prefix}\"")
-    logging.info(f"Currently {len(bot.commands)} in {len(bot.cogs)} are registered")
+    logging.info(f"Currently {len(bot.commands)} commands in {len(bot.cogs)} cogs are registered")
     logging.info(f"On {len(bot.guilds)} guilds")
 
 
