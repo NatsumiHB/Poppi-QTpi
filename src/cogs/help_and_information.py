@@ -11,9 +11,10 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
     @command(help="Display this")
     async def help(self, ctx):
-        embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple())\
-            .set_thumbnail(url=self.bot.user.avatar_url)\
-            .set_footer(text=f"'?' means argument is optional | Up for {self.bot.get_formatted_uptime('{}d {}h {}m {}s')}")
+        embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple()) \
+            .set_thumbnail(url=self.bot.user.avatar_url) \
+            .set_footer(text=f"'?' means argument is optional | "
+                             "Up for {self.bot.get_formatted_uptime('{}d {}h {}m {}s')}")
 
         # Loop through all commands and cogs to generate help
         for cog in self.bot.cogs:
@@ -32,8 +33,8 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         if user is None:
             user = ctx.author
 
-        embed = discord.Embed(color=discord.Color.purple())\
-            .set_author(name=f"{user.display_name}'s avatar", url=str(user.avatar_url))\
+        embed = discord.Embed(color=discord.Color.purple()) \
+            .set_author(name=f"{user.display_name}'s avatar", url=str(user.avatar_url)) \
             .set_image(url=user.avatar_url)
 
         await ctx.send(embed=embed)
