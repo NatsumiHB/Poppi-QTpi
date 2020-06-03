@@ -14,7 +14,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple()) \
             .set_thumbnail(url=self.bot.user.avatar_url) \
             .set_footer(text=f"'?' means argument is optional | "
-                             "Up for {self.bot.get_formatted_uptime('{}d {}h {}m {}s')}")
+                             f"Up for {self.bot.get_formatted_uptime('{}d {}h {}m {}s')}")
 
         # Loop through all commands and cogs to generate help
         for cog in self.bot.cogs:
