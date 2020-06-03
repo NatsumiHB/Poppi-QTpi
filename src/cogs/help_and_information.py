@@ -9,25 +9,12 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     def __init__(self, bot: Poppi):
         self.bot = bot
 
-    @command(help="Display this")
+    @command(help="Display this", usage="")
     async def help(self, ctx):
-        embed = discord.Embed(title=f"Help for {self.bot.user.display_name}", color=discord.Color.purple()) \
-            .set_thumbnail(url=self.bot.user.avatar_url) \
-            .set_footer(text=f"'?' means argument is optional | "
-                             f"Up for {self.bot.get_formatted_uptime('{}d {}h {}m {}s')}")
+        # Send the bot's help embed which is defined by update_help_embed() in /src/poppi.py
+        await ctx.send(embed=self.bot.help_embed)
 
-        # Loop through all commands and cogs to generate help
-        for cog in self.bot.cogs:
-            if cog != "TopGG":
-                bot_commands = ""
-                for bot_command in self.bot.get_cog(cog).get_commands():
-                    bot_commands += f"{bot_command.name} -> {bot_command.help}\n"
-
-                embed.add_field(name=cog, value=bot_commands, inline=False)
-
-        await ctx.send(embed=embed)
-
-    @command(help="Get someone's avatar", usage="[mention?]")
+    @command(help="Get someone's avatar", usage="[mention|None]")
     async def avatar(self, ctx, user: FetchedUser = None):
         # Return avatar of author if no user is given
         if user is None:
@@ -39,7 +26,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
         await ctx.send(embed=embed)
 
-    @command(help="Send a support DM to my creator")
+    @command(help="Send a support DM to my creator", usage="[message]")
     async def support(self, ctx, *, msg):
         user = await self.bot.fetch_user(self.bot.owner_id)
         await user.send(f"Support request from {ctx.author.name}#{ctx.author.discriminator}:\n\n{msg}")

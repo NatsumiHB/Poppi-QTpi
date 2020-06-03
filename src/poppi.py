@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 import discord
 from discord.ext import commands
@@ -8,35 +8,51 @@ class Poppi(commands.Bot):
     def __init__(self, command_prefix, **options):
         super().__init__(command_prefix, **options)
 
-        now = datetime.now()
+        now = datetime.datetime.now()
+        self.start_time = datetime.datetime.combine(now.date(), now.time())
 
-        self.start_time = datetime.combine(now.date(), now.time())
+        self.help_embed = None
+
+    # Updates the help embed to contain the most current cogs and commands
+    def update_help_embed(self):
+        self.help_embed = discord.Embed(title=f"Help for {self.user.display_name}", color=discord.Color.purple()) \
+            .set_thumbnail(url=self.user.avatar_url) \
+            .set_footer(text=f"'?' means argument is optional | Up for {self.get_uptime()}")
+
+        # Get longest command name and usage info
+        longest_cmd_len = len(max((bot_command.name for bot_command in self.commands), key=len))
+        longest_usage_len = len(max((bot_command.usage for bot_command in self.commands), key=len))
+
+        # Loop through all commands and cogs to generate help
+        # Uses a generator in order to only return cogs that aren't the TopGG cog
+        for cog in (cog for cog in self.cogs if cog != "TopGG"):
+            # Generate each help string
+            bot_commands = "\n".join(f"`{bot_command.name:<{longest_cmd_len}} "
+                                     f"{bot_command.usage:<{longest_usage_len}}` -> "
+                                     f"{bot_command.help}"
+                                     for bot_command in self.get_cog(cog).get_commands())
+
+            self.help_embed.add_field(name=cog, value=bot_commands, inline=False)
 
     def get_uptime(self):
-        now = datetime.now()
-        duration = (datetime.combine(now.date(), now.time()) - self.start_time)
-        seconds = duration.seconds
+        now = datetime.datetime.now()
+        seconds = (datetime.datetime.combine(now.date(), now.time()) - self.start_time).seconds
 
-        # days, hours, minutes, seconds
-        return duration.days, seconds // 3600, (seconds // 60) % 60, seconds
-
-    def get_formatted_uptime(self, fmt):
-        uptime = self.get_uptime()
-
-        return fmt.format(uptime[0], uptime[1], uptime[2], uptime[3])
+        # "dd days, hh:mm:ss"
+        return str(datetime.timedelta(seconds=seconds))
 
 
-# Took this from R. Danny for simplicity
+# Took this from R. Danny (https://github.com/Rapptz/RoboDanny) for simplicity
 class FetchedUser(commands.Converter):
     async def convert(self, ctx, argument):
         if not argument.isdigit():
-            raise commands.BadArgument('Not a valid user ID.')
+            raise commands.BadArgument("Not a valid user ID.")
         try:
             return await ctx.bot.fetch_user(argument)
         except discord.NotFound:
-            raise commands.BadArgument('User not found.') from None
+            raise commands.BadArgument("User not found.") from None
         except discord.HTTPException:
-            raise commands.BadArgument('An error occurred while fetching the user.') from None
+            raise commands.BadArgument("An error occurred while fetching the user.") from None
 
 
 def success_embed(msg="Success!", color: discord.Color = discord.Color.green()):

@@ -11,7 +11,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
     # Moderation commands
     # Errors are handled by the error handler in /src/main.py
-    @command(help="Ban a user", usage="[member] [reason?]")
+    @command(help="Ban a user", usage="[member] [reason|None]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
     async def ban(self, ctx, user: discord.Member, reason="None"):
@@ -19,7 +19,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
         await ctx.send(embed=success_embed())
 
-    @command(help="Softban a user", usage="[member] [reason?]")
+    @command(help="Softban a user", usage="[member] [reason|None]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
     async def softban(self, ctx, user: discord.Member, reason="None"):
@@ -28,7 +28,7 @@ class Moderation(commands.Cog, name="Moderation"):
 
         await ctx.send(embed=success_embed())
 
-    @command(help="Kick a user", usage="[member] [reason?]")
+    @command(help="Kick a user", usage="[member] [reason|None]")
     @guild_only()
     @has_guild_permissions(kick_members=True)
     async def kick(self, ctx, user: discord.Member, reason="None"):

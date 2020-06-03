@@ -14,6 +14,7 @@ class Fun(commands.Cog, name="Fun"):
         self.client_session = aiohttp.ClientSession()
 
     async def get_ram_gif(self, kind: str):
+        # Use the cog's ClientSession to get a gif and return the URL to that
         async with self.client_session.get(f"https://rra.ram.moe/i/r?type={kind}") as r:
             res = await r.json()
             return f"https://cdn.ram.moe/{res['path'][3:]}"
