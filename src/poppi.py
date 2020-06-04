@@ -16,8 +16,7 @@ class Poppi(commands.Bot):
     # Updates the help embed to contain the most current cogs and commands
     def update_help_embed(self):
         self.help_embed = discord.Embed(title=f"Help for {self.user.display_name}", color=discord.Color.purple()) \
-            .set_thumbnail(url=self.user.avatar_url) \
-            .set_footer(text=f"'?' means argument is optional | Up for {self.get_uptime()}")
+            .set_thumbnail(url=self.user.avatar_url)
 
         # Get longest command name and usage info
         longest_cmd_len = len(max((bot_command.name for bot_command in self.commands), key=len))
