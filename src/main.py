@@ -41,7 +41,7 @@ async def on_command_error(ctx, error):
 
     if isinstance(error, commands.BotMissingPermissions):
         if error.missing_perms == discord.Permissions.send_messages:
-            return logging.warning(f"Unknown command called: {ctx.message.content}")
+            return logging.warning(f"Bot Missing Permissions: {str(error)}")
         return await ctx.send(embed=error_embed("I am lacking the permissions to do that!"))
 
     if isinstance(error, commands.BadArgument):
@@ -64,7 +64,7 @@ async def on_command_error(ctx, error):
 
     # Ignore errors
     else:
-        return logging.warning(f"Error: {type(error)}")
+        return logging.warning(f"Error: {str(error)}")
 
 
 bot.remove_command("help")
