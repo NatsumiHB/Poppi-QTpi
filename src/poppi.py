@@ -54,9 +54,19 @@ class FetchedUser(commands.Converter):
             raise commands.BadArgument("An error occurred while fetching the user.") from None
 
 
+# Positive reactions
 def success_embed(msg="Success!", color: discord.Color = discord.Color.green()):
-    return discord.Embed(description=msg, color=color)
+    return discord.Embed(title=msg, color=color)
 
 
+async def thumbs_up_react(ctx: commands.Context):
+    await ctx.message.add_reaction(":thumbs_up:")
+
+
+# Negative reactions
 def error_embed(err="Error!", color: discord.Color = discord.Color.red()):
-    return discord.Embed(description=err, color=color)
+    return discord.Embed(title=err, color=color)
+
+
+async def thumbs_down_react(ctx: commands.Context):
+    await ctx.message.add_reaction(":thumbs_down:")

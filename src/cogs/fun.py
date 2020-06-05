@@ -19,26 +19,36 @@ class Fun(commands.Cog, name="Fun"):
             res = await r.json()
             return f"https://cdn.ram.moe/{res['path'][3:]}"
 
-    async def get_ram_embed(self, kind, verb, author: discord.Member, member: typing.Union[discord.Member, str] = None):
+    # args is a string in order to use that if no mentions are given
+    # Mentions do not interfere with strings which means args can be ignored
+    # if pings are existent
+    async def get_ram_embed(self, kind, verb, ctx: commands.Context, args: str = None):
+        # Set author and first_pinged helper variable for later
+        author = ctx.author
+        first_pinged = ctx.message.mentions[0] if len(ctx.message.mentions) == 1 else None
+
         # Check who's being RP'd
-        # Check if a member got pinged, set according to who got pinged
-        if isinstance(member, discord.Member):
-            if member == author:
+        # Check if multiple members got pinged, set name to a comma-delimited list of them
+        if len(ctx.message.mentions) > 1:
+            name = ", ".join(member.display_name for member in ctx.message.mentions)
+        # Check if a member got pinged, set according to who got pinged and context
+        elif first_pinged is not None:
+            if first_pinged == author:
                 name = "themselves"
-            elif member.id == self.bot.user.id:
+            elif first_pinged.id == self.bot.user.id:
                 name = "me"
             else:
-                name = member.display_name
+                name = first_pinged.display_name
         # Check for no argument or RP'd string is "me" -> user RPs themselves
-        elif member == "me" or member is None:
+        elif args == "me" or args is None:
             name = author.display_name
-            author = author.guild.get_member(self.bot.user.id)
+            author = ctx.author.guild.get_member(self.bot.user.id)
         # Same as first elif but for bot user
-        elif member in ("you", "yourself", "poppi"):
+        elif args in ("you", "yourself", "poppi"):
             name = "me"
         # If it is a string that isn't "me" or "you" make the RP'd name the string
         else:
-            name = member
+            name = args
 
         embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.purple())
         embed.set_image(url=await self.get_ram_gif(kind))
@@ -47,50 +57,50 @@ class Fun(commands.Cog, name="Fun"):
     # Lots of repeated code for RP GIF commands
     @command(help="Hug someone", usage="[mention|string|None]")
     @guild_only()
-    async def hug(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("hug", "hugs", ctx.author, member))
+    async def hug(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("hug", "hugs", ctx, args))
 
     @command(help="Pat someone", usage="[mention|string|None]")
     @guild_only()
-    async def pat(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("pat", "pats", ctx.author, member))
+    async def pat(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("pat", "pats", ctx, args))
 
     @command(help="Slap someone", usage="[mention|string|None]")
     @guild_only()
-    async def slap(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("slap", "slaps", ctx.author, member))
+    async def slap(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("slap", "slaps", ctx, args))
 
     @command(help="Kiss someone", usage="[mention|string|None]")
     @guild_only()
-    async def kiss(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("kiss", "kisses", ctx.author, member))
+    async def kiss(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("kiss", "kisses", ctx, args))
 
     @command(help="Lewd someone", usage="[mention|string|None]")
     @guild_only()
-    async def lewd(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("lewd", "lewds", ctx.author, member))
+    async def lewd(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("lewd", "lewds", ctx, args))
 
     @command(help="Lick someone", usage="[mention|string|None]")
     @guild_only()
-    async def lick(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("lick", "licks", ctx.author, member))
+    async def lick(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("lick", "licks", ctx, args))
 
     @command(help="Cuddle someone", usage="[mention|string|None]")
     @guild_only()
-    async def cuddle(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("cuddle", "cuddles", ctx.author, member))
+    async def cuddle(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("cuddle", "cuddles", ctx, args))
 
     @command(help="OwO at someone", usage="[mention|string|None]")
     @guild_only()
-    async def owo(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("owo", "owos at", ctx.author, member))
+    async def owo(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("owo", "owos at", ctx, args))
 
     @command(help="Meow at someone", usage="[mention|string|None]")
     @guild_only()
-    async def meow(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("nyan", "meows at", ctx.author, member))
+    async def meow(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("nyan", "meows at", ctx, args))
 
     @command(help="Nom someone", usage="[mention|string|None]")
     @guild_only()
-    async def nom(self, ctx, *, member: typing.Union[discord.Member, str] = None):
-        await ctx.send(embed=await self.get_ram_embed("nom", "noms", ctx.author, member))
+    async def nom(self, ctx, *, args: str = None):
+        await ctx.send(embed=await self.get_ram_embed("nom", "noms", ctx, args))
