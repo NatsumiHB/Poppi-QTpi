@@ -56,7 +56,7 @@ class FetchedUser(commands.Converter):
 
 # Positive reactions
 def success_embed(msg="Success!", color: discord.Color = discord.Color.green()):
-    return discord.Embed(title=msg, color=color)
+    return discord.Embed(description=msg, color=color)
 
 
 async def thumbs_up_react(ctx: commands.Context):
@@ -65,7 +65,7 @@ async def thumbs_up_react(ctx: commands.Context):
 
 # Negative reactions
 def error_embed(err="Error!", color: discord.Color = discord.Color.red()):
-    return discord.Embed(title=err, color=color)
+    return discord.Embed(description=err, color=color)
 
 
 async def thumbs_down_react(ctx: commands.Context):

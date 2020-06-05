@@ -1,3 +1,5 @@
+from asyncio.exceptions import TimeoutError
+
 import discord
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, has_guild_permissions
@@ -41,19 +43,32 @@ class Roles(commands.Cog, name="Roles"):
     async def ccrp(self, ctx):
         # Check if the author and channel are the same as the ones of the original message
         # If lowercase message is "exit", abort command
-        def check(m: discord.Message):
-            return m.content.lower() != "exit" and m.author == ctx.author and m.channel == ctx.channel
+        def check(msg: discord.Message):
+            return msg.author == ctx.author and msg.channel == ctx.channel
 
-        # Prompt the user to enter a hex color
-        await ctx.send("Started the role creation process.\nWhich hex color should the role be?\n"
-                       "(You can always abort by typing \"exit\")")
-        msg = await self.bot.wait_for("message", check=check)
-        color = discord.Color(int(msg.content, 16))
+        async def abort_check(msg: discord.Message):
+            if msg.content == "exit":
+                await msg.channel.send("Aborted!")
+                return True
 
-        # Prompt the user to enter a name for the role
-        await ctx.send("What should the role be called?")
-        msg = await self.bot.wait_for("message", check=check)
-        name = msg.content
+        # Override standard error handler in order to send a plaintext message on timeout
+        # This is for consistency within the command
+        try:
+            # Prompt the user to enter a hex color
+            await ctx.send("Started the role creation process.\n"
+                           "**Which hex color should the role be?**\n"
+                           "(You can always abort by typing \"exit\")")
+            msg = await self.bot.wait_for("message", check=check, timeout=10)
+            if await abort_check(msg): return
+            color = discord.Color(int(msg.content, 16))
+
+            # Prompt the user to enter a name for the role
+            await ctx.send("What should the role be called?")
+            msg = await self.bot.wait_for("message", check=check, timeout=10)
+            if await abort_check(msg): return
+            name = msg.content
+        except TimeoutError as e:
+            return await ctx.send("Command timed out!")
 
         role = await ctx.guild.create_role(name=name, color=color)
         await ctx.send(embed=success_embed(f"Successfully created role {role.name}", color=role.color))
