@@ -11,7 +11,7 @@ Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and m
 To use Poppi QTπ, follow these steps:
 #### To use Python directly, make sure you have Python 3.8 or newer and then follow these steps:
 1. Install required pip libraries by doing `pip install -r requirements.txt` in the root folder
-2. Set the `POPPI_TOKEN, POPPI_DBL_TOKEN, POPPI_PREFIX` environment variables to the bot's token,
+2. Set the `POPPI_TOKEN, POPPI_DBL_TOKEN, POPPI_PREFIX and POPPI_OWNER_ID` environment variables to the bot's token,
 your Discord Bot List token, the prefix you want and the current version
 3. Run the bot with `python ./src/main.py`
 
