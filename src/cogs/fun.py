@@ -1,4 +1,4 @@
-import typing
+import shlex
 
 import aiohttp
 import discord
@@ -6,6 +6,14 @@ from discord.ext import commands
 from discord.ext.commands import command, guild_only
 
 from poppi import Poppi
+
+
+# Function to create a proper name string from the names list
+def set_name(ctx: commands.Context, names):
+    # Join the names and only return the first name if only one is given
+    name = " and ".join([", ".join(names[:-1]), names[-1]]) if len(names) > 1 else names[0]
+    # Have bot RP the person if they tried to invoke the command on themselves
+    return ctx.author.display_name if name == "themselves" else name
 
 
 class Fun(commands.Cog, name="Fun"):
@@ -23,32 +31,31 @@ class Fun(commands.Cog, name="Fun"):
     # Mentions do not interfere with strings which means args can be ignored
     # if pings are existent
     async def get_ram_embed(self, kind, verb, ctx: commands.Context, args: str = None):
-        # Set author and first_pinged helper variable for later
-        author = ctx.author
-        first_pinged = ctx.message.mentions[0] if len(ctx.message.mentions) == 1 else None
-
         # Check who's being RP'd
         # Check if multiple members got pinged, set name to a comma-delimited list of them
-        if len(ctx.message.mentions) > 1:
-            name = ", ".join(member.display_name for member in ctx.message.mentions)
-        # Check if a member got pinged, set according to who got pinged and context
-        elif first_pinged is not None:
-            if first_pinged == author:
-                name = "themselves"
-            elif first_pinged.id == self.bot.user.id:
-                name = "me"
-            else:
-                name = first_pinged.display_name
-        # Check for no argument or RP'd string is "me" -> user RPs themselves
-        elif args == "me" or args is None:
-            name = author.display_name
-            author = ctx.author.guild.get_member(self.bot.user.id)
-        # Same as first elif but for bot user
-        elif args in ("you", "yourself", "poppi"):
-            name = "me"
-        # If it is a string that isn't "me" or "you" make the RP'd name the string
+        if len(ctx.message.mentions) > 0:
+            # Generate a list of pinged users, using "themselves" if they pinged themselves,
+            # "me" if the bot got pinged and the name of the pinged person for neither
+            # It is turned into a list only containing one of each name/string
+            names = list(dict.fromkeys(["themselves" if member.id == ctx.author.id else
+                                        "me" if member.id == self.bot.user.id else
+                                        member.display_name
+                                        for member in ctx.message.mentions]))
+            name = set_name(ctx, names)
+        # Defaults to patting the user
+        elif args is None:
+            name = set_name(ctx, ["themselves"])
+        # If there are no mentions, parse the arguments according to grammar using the
+        # same method used when parsing pings, just applied to strings
         else:
-            name = args
+            names = list(dict.fromkeys(["themselves" if name in ("me", "myself") or name == ctx.author.display_name else
+                                        "me" if name in ("you", "poppi") else
+                                        name
+                                        for name in shlex.split(args)]))
+            name = set_name(ctx, names)
+
+        # Finally, set the author
+        author = ctx.guild.get_member(self.bot.user.id) if name == ctx.author.display_name else ctx.author
 
         embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.purple())
         embed.set_image(url=await self.get_ram_gif(kind))
