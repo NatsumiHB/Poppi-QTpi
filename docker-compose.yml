@@ -3,8 +3,16 @@ version: "3"
 services:
     poppi:
         image: natsuwumi/poppi:latest
+        ports:
+          - 5000:5000
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}
           - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
           - POPPI_PREFIX=${POPPI_PREFIX}
           - POPPI_OWNER_ID=${POPPI_OWNER_ID}
+        networks:
+          - proxy_net
+
+networks:
+  proxy_net:
+    external: true

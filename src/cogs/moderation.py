@@ -1,3 +1,5 @@
+from typing import Union
+
 import discord
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, has_guild_permissions
@@ -14,7 +16,7 @@ class Moderation(commands.Cog, name="Moderation"):
     @command(help="Ban a user", usage="[user] [string|None]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
-    async def ban(self, ctx, user: FetchedUser, reason="None"):
+    async def ban(self, ctx, user: Union[discord.User, FetchedUser], reason="None"):
         await ctx.guild.ban(user, reason=reason)
 
         await ctx.send(embed=success_embed(f"Successfully banned {user.display_name}#{user.discriminator}!"))
@@ -22,7 +24,7 @@ class Moderation(commands.Cog, name="Moderation"):
     @command(help="Unban a user", usage="[user] [string|None]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
-    async def unban(self, ctx, user: FetchedUser, reason="None"):
+    async def unban(self, ctx, user: Union[discord.User, FetchedUser], reason="None"):
         await ctx.guild.unban(user, reason=reason)
 
         await ctx.send(embed=success_embed(f"Successfully unbanned {user.display_name}#{user.discriminator}!"))

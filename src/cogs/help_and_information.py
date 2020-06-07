@@ -1,3 +1,5 @@
+from typing import Union
+
 import discord
 from discord.ext import commands
 from discord.ext.commands import command
@@ -9,14 +11,14 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     def __init__(self, bot: Poppi):
         self.bot = bot
 
-    @command(help="Display this", usage="")
+    @command(help="Display the help", usage="")
     async def help(self, ctx):
         # Send the bot's help embed which is defined by update_help_embed() in /src/poppi.py
         self.bot.help_embed.set_footer(text=f"'?' means argument is optional | Up for {self.bot.get_uptime()}")
         await ctx.send(embed=self.bot.help_embed)
 
     @command(help="Get someone's avatar", usage="[user|None]")
-    async def avatar(self, ctx, user: FetchedUser = None):
+    async def avatar(self, ctx, user: Union[discord.User, FetchedUser] = None):
         # Return avatar of author if no user is given
         if user is None:
             user = ctx.author

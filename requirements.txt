@@ -1,3 +1,5 @@
 discord-py
 coloredlogs
 dblpy
+flask
+waitress

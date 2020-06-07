@@ -9,6 +9,8 @@ verify_ssl = true
 discord-py = "*"
 coloredlogs = "*"
 dblpy = "*"
+flask = "*"
+waitress = "*"
 
 [requires]
 python_version = "3.8"
