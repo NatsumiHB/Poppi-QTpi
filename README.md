@@ -19,7 +19,7 @@ your Discord Bot List token, the prefix you want and the current version
 and then run the bot with `pipenv run python ./src/main.py`**
 
 #### To use Docker follow these steps:
-1. Set the same environmental variables as in the Python guide
+1. Set the same environment variables as in the Python guide
 2. Run `docker-compose up -d` (or without `-d` if you do not want the bot to run as a daemon)
 
 This bot uses the FetchedUser class from [RoboDanny](https://github.com/Rapptz/RoboDanny/blob/18b92ae2f53927aedebc25fb5eca02c8f6d7a874/cogs/meta.py#L21)
