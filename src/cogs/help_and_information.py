@@ -15,7 +15,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         self.bot.help_embed.set_footer(text=f"'?' means argument is optional | Up for {self.bot.get_uptime()}")
         await ctx.send(embed=self.bot.help_embed)
 
-    @command(help="Get someone's avatar", usage="[mention|None]")
+    @command(help="Get someone's avatar", usage="[user|None]")
     async def avatar(self, ctx, user: FetchedUser = None):
         # Return avatar of author if no user is given
         if user is None:
