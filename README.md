@@ -5,8 +5,6 @@
 
 Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and much more!
 
-**By using Poppi QTπ you accept the MIT license** 
-
 ## Usage
 To use Poppi QTπ, follow these steps:
 #### To use Python directly, make sure you have Python 3.8 or newer and then follow these steps:
