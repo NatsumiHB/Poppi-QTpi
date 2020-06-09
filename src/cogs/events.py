@@ -27,8 +27,6 @@ class Events(commands.Cog):
             return await ctx.send(embed=error_embed("You are lacking permissions!"))
 
         if isinstance(error, commands.BotMissingPermissions):
-            if error.missing_perms == discord.Permissions.send_messages:
-                return logging.warning(f"Bot Missing Permissions: {str(error)}")
             return await ctx.send(embed=error_embed("I am lacking the permissions to do that!"))
 
         if isinstance(error, commands.BadArgument):
@@ -36,7 +34,8 @@ class Events(commands.Cog):
 
         if isinstance(error, commands.BadUnionArgument):
             return await ctx.send(
-                embed=error_embed("Bad (union) argument provided! (Consult help for usage information)"))
+                embed=error_embed("Bad (union) argument provided! (Consult help for usage information)")
+            )
 
         if isinstance(error, commands.MissingRequiredArgument):
             return await ctx.send(embed=error_embed("Please provide all required arguments! (Consult help for usage "
@@ -48,7 +47,10 @@ class Events(commands.Cog):
         # Invoked command threw error
         if isinstance(error, commands.CommandInvokeError):
             logging.warning(str(error))
-            return await ctx.send(embed=error_embed(str(error)))
+            try:
+                return await ctx.send(embed=error_embed(str(error)))
+            except Exception as e:
+                logging.warning(f"Tried sending error_embed in CommandInvokeError but couldn't: {str(error)}")
 
         # Ignore errors
         else:
