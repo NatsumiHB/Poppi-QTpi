@@ -6,7 +6,7 @@ from threading import Thread
 import coloredlogs
 import discord
 import waitress
-from flask import Flask
+from flask import Flask, redirect
 
 from cogs.TopGG import TopGG
 from cogs.events import Events
@@ -40,6 +40,11 @@ api = Flask("Poppi QTπ")
 @api.route("/server_count", methods=["GET"])
 def server_count():
     return str(len(bot.guilds))
+
+
+@api.route("/avatar", methods=["GET"])
+def server_cont():
+    return redirect(bot.user.avatar_url)
 
 
 @api.route("/avatar_url", methods=["GET"])
