@@ -47,11 +47,6 @@ def server_cont():
     return redirect(bot.user.avatar_url)
 
 
-@api.route("/avatar_url", methods=["GET"])
-def avatar_url():
-    return str(bot.user.avatar_url)
-
-
 @api.route("/commands", methods=["GET"])
 def commands():
     return bot.commands_json
