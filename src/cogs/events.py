@@ -41,6 +41,9 @@ class Events(commands.Cog):
             return await ctx.send(embed=error_embed("Please provide all required arguments! (Consult help for usage "
                                                     "information)"))
 
+        if isinstance(error, commands.NSFWChannelRequired):
+            return await ctx.send(embed=error_embed("This command only works in NSFW channels!"))
+
         if isinstance(error, commands.CommandNotFound):
             return logging.warning(f"Unknown command called: {ctx.message.content}")
 

@@ -3,7 +3,7 @@ import shlex
 import aiohttp
 import discord
 from discord.ext import commands
-from discord.ext.commands import command, guild_only
+from discord.ext.commands import command, guild_only, is_nsfw
 
 from poppi import Poppi
 
@@ -84,6 +84,7 @@ class Fun(commands.Cog, name="Fun"):
 
     @command(help="Lewd someone", usage="[mention|string|None]")
     @guild_only()
+    @is_nsfw()
     async def lewd(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("lewd", "lewds", ctx, args))
 
@@ -99,6 +100,7 @@ class Fun(commands.Cog, name="Fun"):
 
     @command(help="OwO at someone", usage="[mention|string|None]")
     @guild_only()
+    @is_nsfw()
     async def owo(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("owo", "owos at", ctx, args))
 
