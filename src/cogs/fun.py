@@ -82,7 +82,7 @@ class Fun(commands.Cog, name="Fun"):
     async def kiss(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("kiss", "kisses", ctx, args))
 
-    @command(help="Lewd someone", usage="[mention|string|None]")
+    @command(help="Lewd someone (NSFW)", usage="[mention|string|None]")
     @guild_only()
     @is_nsfw()
     async def lewd(self, ctx, *, args: str = None):
@@ -98,7 +98,7 @@ class Fun(commands.Cog, name="Fun"):
     async def cuddle(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("cuddle", "cuddles", ctx, args))
 
-    @command(help="OwO at someone", usage="[mention|string|None]")
+    @command(help="OwO at someone (NSFW)", usage="[mention|string|None]")
     @guild_only()
     @is_nsfw()
     async def owo(self, ctx, *, args: str = None):
