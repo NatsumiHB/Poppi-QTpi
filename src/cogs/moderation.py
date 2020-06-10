@@ -2,7 +2,8 @@ from typing import Union
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import command, guild_only, has_guild_permissions, bot_has_guild_permissions
+from discord.ext.commands import command, guild_only, has_guild_permissions, bot_has_guild_permissions, \
+    has_permissions, bot_has_permissions
 
 from poppi import success_embed, error_embed, Poppi, FetchedUser
 
@@ -52,8 +53,8 @@ class Moderation(commands.Cog, name="Moderation"):
 
     @command(help="Clear up to 100 messages", usage="[amount]")
     @guild_only()
-    @has_guild_permissions(manage_messages=True)
-    @bot_has_guild_permissions(manage_messages=True)
+    @has_permissions(manage_messages=True)
+    @bot_has_permissions(manage_messages=True)
     async def clear(self, ctx, amount: int):
         # Check for boundaries (no more than 100 msgs deleted at once)
         if amount > 100:
