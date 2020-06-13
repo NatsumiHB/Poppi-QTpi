@@ -19,7 +19,6 @@ from poppi import Poppi
 # Set up logging
 coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
-
 # Set up bot
 bot = Poppi(command_prefix=os.getenv("POPPI_PREFIX"),
             activity=discord.Game(name=f"{os.getenv('POPPI_PREFIX')}help"),
