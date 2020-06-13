@@ -42,10 +42,10 @@ class Poppi(commands.Bot):
 
     def get_uptime(self):
         now = datetime.datetime.now()
-        seconds = (datetime.datetime.combine(now.date(), now.time()) - self.start_time).seconds
+        td = datetime.datetime.combine(now.date(), now.time()) - self.start_time
 
         # "dd days, hh:mm:ss"
-        return str(datetime.timedelta(seconds=seconds))
+        return str(td).split(".")[0]
 
 
 # Took this from R. Danny (https://github.com/Rapptz/RoboDanny) for simplicity
