@@ -14,7 +14,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     @command(help="Display the help", usage="")
     async def help(self, ctx):
         # Send the bot's help embed which is defined by update_help_embed() in /src/poppi.py
-        self.bot.help_embed.set_footer(text=f"'?' means argument is optional | Up for {self.bot.get_uptime()}")
+        self.bot.help_embed.set_footer(text=f"'?' means argument is optional")
         await ctx.send(embed=self.bot.help_embed)
 
     @command(help="Get someone's avatar", usage="[user|None]")

@@ -8,9 +8,6 @@ class Poppi(commands.Bot):
     def __init__(self, command_prefix, **options):
         super().__init__(command_prefix, **options)
 
-        now = datetime.datetime.now()
-        self.start_time = datetime.datetime.combine(now.date(), now.time())
-
         self.help_embed = None
         self.commands_json = None
 
@@ -39,13 +36,6 @@ class Poppi(commands.Bot):
             cog: {command.name: command.help for command in self.get_cog(cog).get_commands()}
             for cog in self.cogs if cog != "TopGG" and cog != "Events"
         }
-
-    def get_uptime(self):
-        now = datetime.datetime.now()
-        td = datetime.datetime.combine(now.date(), now.time()) - self.start_time
-
-        # "dd days, hh:mm:ss"
-        return str(td).split(".")[0]
 
 
 # Took this from R. Danny (https://github.com/Rapptz/RoboDanny) for simplicity
