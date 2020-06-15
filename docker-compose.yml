@@ -3,8 +3,6 @@ version: "3"
 services:
     poppi:
         image: natsuwumi/poppi:latest
-        ports:
-          - 5000:5000
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}
           - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
