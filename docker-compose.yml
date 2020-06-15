@@ -8,6 +8,8 @@ services:
           - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
           - POPPI_PREFIX=${POPPI_PREFIX}
           - POPPI_OWNER_ID=${POPPI_OWNER_ID}
+        ports:
+          - 5000:5000
         networks:
           - proxy_net
 
