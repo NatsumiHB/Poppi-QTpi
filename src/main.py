@@ -42,7 +42,7 @@ def server_count():
 
 
 @api.route("/avatar", methods=["GET"])
-def server_cont():
+def avatar():
     return redirect(bot.user.avatar_url)
 
 
