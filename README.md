@@ -21,7 +21,7 @@ and then run the bot with `pipenv run python ./src/main.py`**
 1. Set the same environment variables as in the Python guide
 2. Run `docker-compose up -d` (or without `-d` if you do not want the bot to run as a daemon)
 
-##### If you wish to run Poppi QTπ without some specific environment variables set, you can refer to this table to make the needed code changes:
+#### If you wish to run Poppi QTπ without some specific environment variables set, you can refer to this table to make the needed code changes:
 | Variable            | Where                                 |
 | :-----------------: | :-----------------------------------: |
 | **POPPI_TOKEN**     | main.py                               |
@@ -29,6 +29,5 @@ and then run the bot with `pipenv run python ./src/main.py`**
 | **POPPI_OWNER_ID**  | main.py; cogs/help_and_information.py |
 | **POPPI_DBL_TOKEN** | cogs/TopGG.py                         |
 
-This bot uses the FetchedUser class from [RoboDanny](https://github.com/Rapptz/RoboDanny/blob/18b92ae2f53927aedebc25fb5eca02c8f6d7a874/cogs/meta.py#L21)
-
-RoboDanny, as well as Poppi QTπ, is licensed under the MIT license.
+## Credits
+##### This bot uses the FetchedUser class from [RoboDanny](https://github.com/Rapptz/RoboDanny/blob/18b92ae2f53927aedebc25fb5eca02c8f6d7a874/cogs/meta.py#L21). 
