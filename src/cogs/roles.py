@@ -45,12 +45,12 @@ class Roles(commands.Cog, name="Roles"):
     async def ccrp(self, ctx):
         # Check if the author and channel are the same as the ones of the original message
         # If lowercase message is "exit", abort command
-        def check(msg: discord.Message):
-            return msg.author == ctx.author and msg.channel == ctx.channel
+        def check(m: discord.Message):
+            return m.author == ctx.author and m.channel == ctx.channel
 
-        async def abort_check(msg: discord.Message):
-            if msg.content == "exit":
-                await msg.channel.send("Aborted!")
+        async def abort_check(m: discord.Message):
+            if m.content == "exit":
+                await m.channel.send("Aborted!")
                 return True
 
         # Override standard error handler in order to send a plaintext message on timeout
@@ -61,13 +61,15 @@ class Roles(commands.Cog, name="Roles"):
                            "**Which hex color should the role be?**\n"
                            "(You can always abort by typing \"exit\")")
             msg = await self.bot.wait_for("message", check=check, timeout=10)
-            if await abort_check(msg): return
+            if await abort_check(msg):
+                return
             color = discord.Color(int(msg.content, 16))
 
             # Prompt the user to enter a name for the role
             await ctx.send("What should the role be called?")
             msg = await self.bot.wait_for("message", check=check, timeout=10)
-            if await abort_check(msg): return
+            if await abort_check(msg):
+                return
             name = msg.content
         except TimeoutError as e:
             return await ctx.send("Command timed out!")
