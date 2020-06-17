@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-    poppi:
+    bot:
         image: natsuwumi/poppi:latest
         environment:
           - POPPI_TOKEN=${POPPI_TOKEN}
