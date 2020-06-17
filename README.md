@@ -30,4 +30,4 @@ and then run the bot with `pipenv run python ./src/main.py`**
 | **POPPI_DBL_TOKEN** | cogs/TopGG.py                         |
 
 ## Credits
-##### This bot uses the FetchedUser class from [RoboDanny](https://github.com/Rapptz/RoboDanny/blob/18b92ae2f53927aedebc25fb5eca02c8f6d7a874/cogs/meta.py#L21). 
+-  FetchedUser class from [RoboDanny](https://github.com/Rapptz/RoboDanny/blob/18b92ae2f53927aedebc25fb5eca02c8f6d7a874/cogs/meta.py#L21). 
