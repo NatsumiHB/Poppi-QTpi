@@ -27,7 +27,8 @@ class Fun(commands.Cog, name="Fun"):
             res = await r.json()
             return f"https://cdn.ram.moe/{res['path'][3:]}"
 
-    # args is a string in order to use that if no mentions are given
+    # args has to be a string, when using a Union you can't easily parse it how it is currently implemented
+    # The string element is ignored when mentions are present
     # Mentions do not interfere with strings which means args can be ignored
     # if pings are existent
     async def get_ram_embed(self, kind, verb, ctx: commands.Context, args: str = None):
