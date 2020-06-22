@@ -2,11 +2,11 @@ import logging
 
 from discord.ext import commands
 
-from poppi import error_embed
+from poppi import error_embed, Poppi
 
 
 class Events(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: Poppi):
         self.bot = bot
 
     @commands.Cog.listener()
