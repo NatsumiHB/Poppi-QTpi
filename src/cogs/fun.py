@@ -63,54 +63,54 @@ class Fun(commands.Cog, name="Fun"):
         return embed
 
     # Lots of repeated code for RP GIF commands
-    @command(help="Hug someone", usage="[mention|string|None]")
+    @command(help="Hug someone", usage="[member|string|None]")
     @guild_only()
     async def hug(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("hug", "hugs", ctx, args))
 
-    @command(help="Pat someone", usage="[mention|string|None]")
+    @command(help="Pat someone", usage="[member|string|None]")
     @guild_only()
     async def pat(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("pat", "pats", ctx, args))
 
-    @command(help="Slap someone", usage="[mention|string|None]")
+    @command(help="Slap someone", usage="[member|string|None]")
     @guild_only()
     async def slap(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("slap", "slaps", ctx, args))
 
-    @command(help="Kiss someone", usage="[mention|string|None]")
+    @command(help="Kiss someone", usage="[member|string|None]")
     @guild_only()
     async def kiss(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("kiss", "kisses", ctx, args))
 
-    @command(help="Lewd someone (NSFW)", usage="[mention|string|None]")
+    @command(help="Lewd someone (NSFW)", usage="[member|string|None]")
     @guild_only()
     @is_nsfw()
     async def lewd(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("lewd", "lewds", ctx, args))
 
-    @command(help="Lick someone", usage="[mention|string|None]")
+    @command(help="Lick someone", usage="[member|string|None]")
     @guild_only()
     async def lick(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("lick", "licks", ctx, args))
 
-    @command(help="Cuddle someone", usage="[mention|string|None]")
+    @command(help="Cuddle someone", usage="[member|string|None]")
     @guild_only()
     async def cuddle(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("cuddle", "cuddles", ctx, args))
 
-    @command(help="OwO at someone (NSFW)", usage="[mention|string|None]")
+    @command(help="OwO at someone (NSFW)", usage="[member|string|None]")
     @guild_only()
     @is_nsfw()
     async def owo(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("owo", "owos at", ctx, args))
 
-    @command(help="Meow at someone", usage="[mention|string|None]")
+    @command(help="Meow at someone", usage="[member|string|None]")
     @guild_only()
     async def meow(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("nyan", "meows at", ctx, args))
 
-    @command(help="Nom someone", usage="[mention|string|None]")
+    @command(help="Nom someone", usage="[member|string|None]")
     @guild_only()
     async def nom(self, ctx, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("nom", "noms", ctx, args))
