@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import command
 
-from poppi import success_embed, FetchedUser, Poppi
+from poppi import success_embed, FetchedUser, Poppi, PoppiEmbed
 
 
 class HelpAndInformation(commands.Cog, name="Help and Information"):
@@ -14,7 +14,6 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     @command(help="Display the help", usage="")
     async def help(self, ctx):
         # Send the bot's help embed which is defined by update_help_embed() in /src/poppi.py
-        self.bot.help_embed.set_footer(text=f"'?' means argument is optional")
         await ctx.send(embed=self.bot.help_embed)
 
     @command(help="Get someone's avatar", usage="[user|None]")
@@ -23,11 +22,18 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         if user is None:
             user = ctx.author
 
-        embed = discord.Embed(color=discord.Color.purple()) \
-            .set_author(name=f"{user.display_name}'s avatar", url=str(user.avatar_url)) \
-            .set_image(url=user.avatar_url)
+        await ctx.send(embed=PoppiEmbed()
+                       .set_author(name=f"{user.display_name}'s avatar", url=user.avatar_url)
+                       .set_image(url=user.avatar_url))
 
-        await ctx.send(embed=embed)
+    @command(help="Make an emoji bigger", usage="[emoji]")
+    async def emoji(self, ctx, emoji: discord.PartialEmoji):
+        if not emoji.is_custom_emoji():
+            raise commands.BadArgument()
+
+        await ctx.send(embed=PoppiEmbed()
+                       .set_author(name=f":{emoji.name}:", url=emoji.url)
+                       .set_image(url=emoji.url))
 
     @command(help="Send a support DM to my creator", usage="[message]")
     async def support(self, ctx, *, msg):

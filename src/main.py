@@ -20,8 +20,9 @@ from poppi import Poppi
 coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
 
 # Set up bot
-bot = Poppi(command_prefix=os.getenv("POPPI_PREFIX"),
-            activity=discord.Game(name=f"{os.getenv('POPPI_PREFIX')}help"),
+prefix = os.getenv("POPPI_PREFIX")
+bot = Poppi(command_prefix=prefix,
+            activity=discord.Game(name=f"{prefix}help"),
             owner_id=os.getenv("POPPI_OWNER_ID"))
 
 bot.remove_command("help")

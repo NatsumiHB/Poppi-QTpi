@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, is_nsfw
 
-from poppi import Poppi
+from poppi import Poppi, PoppiEmbed
 
 
 # Function to create a proper name string from the names list
@@ -58,8 +58,8 @@ class Fun(commands.Cog, name="Fun"):
         # Finally, set the author
         author = ctx.guild.get_member(self.bot.user.id) if name == ctx.author.display_name else ctx.author
 
-        embed = discord.Embed(title=f"{author.display_name} {verb} {name}!", color=discord.Color.purple())
-        embed.set_image(url=await self.get_ram_gif(kind))
+        embed = PoppiEmbed(title=f"{author.display_name} {verb} {name}!") \
+            .set_image(url=await self.get_ram_gif(kind))
         return embed
 
     # Lots of repeated code for RP GIF commands
