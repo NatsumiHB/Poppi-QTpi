@@ -8,3 +8,8 @@
 - Warns?
 - Info command for info about bot
 - Userinfo command
+- make every ctx ctx: Context (discord.ext.commands.Context)
+- remove unnecessary str() calls (see error handler)
+- update packages
+- remove reaction helper functions in poppi.py
+- make every embed have small icon on the bottom
