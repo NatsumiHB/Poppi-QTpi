@@ -13,7 +13,7 @@ class Moderation(commands.Cog, name="Moderation"):
         self.bot = bot
 
     # Moderation commands
-    # Errors are handled by the error handler in /src/main.py
+    # Errors are handled by the error handler in /src/cogs/events.py
     @command(help="Ban a user", usage="[user] [string|None]")
     @guild_only()
     @has_guild_permissions(ban_members=True)
