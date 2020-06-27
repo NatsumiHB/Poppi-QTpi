@@ -21,7 +21,7 @@ class Events(commands.Cog):
         logging.info(f"On {len(self.bot.guilds)} guilds")
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingPermissions):
             return await ctx.send(embed=error_embed("You are lacking permissions!"))
 
@@ -52,7 +52,7 @@ class Events(commands.Cog):
             try:
                 return await ctx.send(embed=error_embed(str(error)))
             except Exception as e:
-                logging.warning(f"Tried sending error_embed in CommandInvokeError but couldn't: {str(error)}")
+                logging.warning(f"Tried sending error_embed in CommandInvokeError but couldn't: {error}")
 
         # Ignore errors
         else:

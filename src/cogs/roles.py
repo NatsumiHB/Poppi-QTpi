@@ -1,6 +1,7 @@
 from asyncio.exceptions import TimeoutError
 
 import discord
+import discord.ext.commands
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, has_guild_permissions, bot_has_guild_permissions
 
@@ -13,7 +14,7 @@ class Roles(commands.Cog, name="Roles"):
 
     @command(help="Get role information", usage="[role]")
     @guild_only()
-    async def roleinfo(self, ctx, *, role: discord.Role):
+    async def roleinfo(self, ctx: commands.Context, *, role: discord.Role):
         # Create a string using a generator that iterates over each permission and adds its name
         # Has two newlines in the beginning in order for the embed to render properly
         perm_string = f"\n\n```\n{', '.join(perm for (perm, value) in role.permissions.__iter__() if value == True)}```"
@@ -33,7 +34,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def ccr(self, ctx, color: discord.Color, *, name: str):
+    async def ccr(self, ctx: commands.Context, color: discord.Color, *, name: str):
         role = await ctx.guild.create_role(name=name, color=color)
         await ctx.send(embed=success_embed(f"Successfully created role {role.name}", color=role.color))
 
@@ -41,7 +42,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def ccrp(self, ctx):
+    async def ccrp(self, ctx: commands.Context):
         # Check if the author and channel are the same as the ones of the original message
         # If lowercase message is "exit", abort command
         def check(m: discord.Message):
@@ -80,7 +81,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def dr(self, ctx, role: discord.Role):
+    async def dr(self, ctx: commands.Context, role: discord.Role):
         await role.delete()
         await ctx.send(embed=success_embed(f"Successfully deleted {role.name}", color=role.color))
 
@@ -88,7 +89,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def ar(self, ctx, member: discord.Member, role: discord.Role):
+    async def ar(self, ctx: commands.Context, member: discord.Member, role: discord.Role):
         await member.add_roles(role)
         await ctx.send(embed=success_embed(f"Successfully added {role.name} to {member.display_name}",
                                            color=role.color))
@@ -97,7 +98,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def rr(self, ctx, member: discord.Member, role: discord.Role):
+    async def rr(self, ctx: commands.Context, member: discord.Member, role: discord.Role):
         await member.remove_roles(role)
         await ctx.send(embed=success_embed(f"Successfully removed {role.name} to {member.display_name}",
                                            color=role.color))
