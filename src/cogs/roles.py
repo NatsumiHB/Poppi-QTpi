@@ -19,16 +19,19 @@ class Roles(commands.Cog, name="Roles"):
         # Has two newlines in the beginning in order for the embed to render properly
         perm_string = f"\n\n```\n{', '.join(perm for (perm, value) in role.permissions.__iter__() if value == True)}```"
 
-        await ctx.send(embed=discord.Embed(title=f"Information about {role.name}",
-                                           description=f"ID: {role.id}\n"
-                                                       f"Color: 0x{role.color.value:X}\n\n"
-                                                       f"Mentionable: {role.mentionable}\n"
-                                                       f"Hoisted: {role.hoist}\n"
-                                                       f"Position: {role.position}\n"
-                                                       f"Members: {len(role.members)}"
-                                           # Only add a string if permissions exist
-                                                       f"{perm_string if role.permissions.value > 0 else ''}",
-                                           color=role.color))
+        info_embed = discord.Embed(title=f"Information about {role.name}",
+                                   description=f"ID: {role.id}\n"
+                                               f"Color: 0x{role.color.value:X}\n\n"
+                                               f"Mentionable: {role.mentionable}\n"
+                                               f"Hoisted: {role.hoist}\n"
+                                               f"Position: {role.position}\n"
+                                               f"Members: {len(role.members)}",
+                                   color=role.color)
+
+        if role.permissions.value > 0:
+            info_embed.add_field(name="Permissions:", value=perm_string, inline=False)
+
+        await ctx.send(embed=info_embed)
 
     @command(help="Create a color role", usage="[color] [name]")
     @guild_only()

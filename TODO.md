@@ -7,3 +7,4 @@
 - Warns?
 - Info command for info about bot
 - Userinfo command
+- Update roleinfo command

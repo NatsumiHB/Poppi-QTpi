@@ -35,7 +35,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
                        .set_author(name=f":{emoji.name}:", url=emoji.url)
                        .set_image(url=emoji.url))
 
-    @command(help="Send a support DM to my creator", usage="[message]")
+    @command(help="Send a support DM to my owner", usage="[message]")
     async def support(self, ctx: commands.Context, *, msg):
         user = await self.bot.fetch_user(self.bot.owner_id)
         await user.send(f"Support request from {ctx.author.name}#{ctx.author.discriminator}:\n\n{msg}")
