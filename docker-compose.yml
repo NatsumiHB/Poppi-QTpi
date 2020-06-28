@@ -3,11 +3,8 @@ version: "3"
 services:
     bot:
         image: natsuwumi/poppi:latest
-        environment:
-          - POPPI_TOKEN=${POPPI_TOKEN}
-          - POPPI_DBL_TOKEN=${POPPI_DBL_TOKEN}
-          - POPPI_PREFIX=${POPPI_PREFIX}
-          - POPPI_OWNER_ID=${POPPI_OWNER_ID}
+        volumes:
+          - ./.env:/srv/poppi/.env
         ports:
           - 5000:5000
         networks:
