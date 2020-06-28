@@ -6,6 +6,7 @@ from threading import Thread
 import coloredlogs
 import discord
 import waitress
+from dotenv import load_dotenv
 from flask import Flask, redirect
 
 from cogs.TopGG import TopGG
@@ -18,6 +19,9 @@ from poppi import Poppi
 
 # Set up logging
 coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s")
+
+# Load .env
+load_dotenv(dotenv_path="../.env")
 
 # Set up bot
 prefix = os.getenv("POPPI_PREFIX")
