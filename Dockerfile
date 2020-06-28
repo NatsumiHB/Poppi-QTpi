@@ -4,4 +4,4 @@ WORKDIR /srv/poppi/
 RUN pip install -r requirements.txt
 EXPOSE 5000
 WORKDIR ./src/
-CMD python ./src/main.py
+CMD python ./main.py
