@@ -22,14 +22,17 @@ class Poppi(commands.Bot):
             .set_footer(text=f"Running discord.py v.{discord.__version__} | '?' means argument is optional")
 
         # Get longest command name and usage info
-        longest_cmd_len = len(max((bot_command.name for bot_command in self.commands), key=len))
+        longest_cmd_len = len(max(
+            (', '.join([bot_command.name] + bot_command.aliases) for bot_command in self.commands),
+            key=len)
+        )
         longest_usage_len = len(max((bot_command.usage for bot_command in self.commands), key=len))
 
         # Loop through all commands and cogs to generate help
         # Uses a generator in order to only return cogs with commands
         for cog in (cog for cog in self.cogs if cog not in ["TopGG", "Events"]):
             # Generate each help string
-            bot_commands = "\n".join(f"`{bot_command.name:<{longest_cmd_len}} "
+            bot_commands = "\n".join(f"`{', '.join([bot_command.name] + bot_command.aliases):<{longest_cmd_len}} "
                                      f"{bot_command.usage:<{longest_usage_len}}` -> "
                                      f"{bot_command.help}"
                                      for bot_command in self.get_cog(cog).get_commands())
