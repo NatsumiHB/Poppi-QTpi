@@ -26,7 +26,7 @@ class Poppi(commands.Bot):
 
         super().__init__(command_prefix=self.get_prefix,
                          activity=discord.Game(name=f"{self.default_prefix}help"),
-                         owner_id=os.getenv("POPPI_OWNER_ID"),
+                         owner_id=int(os.getenv("POPPI_OWNER_ID")),
                          **options)
 
     async def get_prefix(self, message):
