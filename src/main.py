@@ -24,10 +24,7 @@ coloredlogs.install(level="INFO", fmt="[%(asctime)s][%(levelname)s]: %(message)s
 load_dotenv(dotenv_path="../.env")
 
 # Set up bot
-prefix = os.getenv("POPPI_PREFIX")
-bot = Poppi(command_prefix=prefix,
-            activity=discord.Game(name=f"{prefix}help"),
-            owner_id=os.getenv("POPPI_OWNER_ID"))
+bot = Poppi()
 
 bot.remove_command("help")
 bot.add_cog(Events(bot))

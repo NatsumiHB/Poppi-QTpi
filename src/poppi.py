@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+import sqlite3
+import os
 
 
 class PoppiEmbed(discord.Embed):
@@ -9,11 +11,37 @@ class PoppiEmbed(discord.Embed):
 
 
 class Poppi(commands.Bot):
-    def __init__(self, command_prefix, **options):
-        super().__init__(command_prefix, **options)
+    def __init__(self, **options):
+        self.default_prefix = os.getenv("POPPI_PREFIX")
 
+        # Help embed for help command and commands_json for web API
         self.help_embed = None
         self.commands_json = None
+
+        # Open DB and create table if it doesn't exist yet
+        self.db_conn = sqlite3.connect("../bot_db.sqlite")
+        self.db_cursor = self.db_conn.cursor()
+        self.db_cursor.execute(r"CREATE TABLE IF NOT EXISTS prefixes (guild_id text PRIMARY KEY, prefix text NOT NULL)")
+
+        super().__init__(command_prefix=self.get_prefix,
+                         activity=discord.Game(name=f"{self.default_prefix}help"),
+                         owner_id=os.getenv("POPPI_OWNER_ID"),
+                         **options)
+
+    async def get_prefix(self, message):
+        if message.guild:
+            custom_prefix = self.db_cursor.execute(
+                "SELECT prefix FROM prefixes WHERE guild_id=?",
+                (message.guild.id,)
+            ).fetchone()
+
+            if not custom_prefix:
+                return [self.default_prefix]
+            else:
+                # Need to access the first element as fetchone returns a tuple
+                return [self.default_prefix, custom_prefix[0]]
+        else:
+            return [self.default_prefix]
 
     # Updates the help embed and commands JSON to contain the most current cogs and commands
     def update_help(self):

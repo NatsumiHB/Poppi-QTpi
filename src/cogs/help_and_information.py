@@ -2,7 +2,7 @@ from typing import Union
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import command
+from discord.ext.commands import command, guild_only
 
 from poppi import success_embed, FetchedUser, Poppi, PoppiEmbed
 
@@ -15,6 +15,19 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     async def help(self, ctx: commands.Context):
         # Send the bot's help embed which is defined by update_help_embed() in /src/poppi.py
         await ctx.send(embed=self.bot.help_embed)
+
+    @command(help="Change the local prefix", usage="[string]")
+    @guild_only()
+    async def prefix(self, ctx: commands.Context, prefix: str = None):
+        prefix = prefix if prefix is not None else self.bot.default_prefix
+
+        self.bot.db_cursor.execute(
+            "INSERT INTO prefixes (guild_id, prefix) VALUES (?, ?) ON CONFLICT(guild_id) DO UPDATE SET prefix=?",
+            (ctx.guild.id, prefix, prefix,)
+        )
+        self.bot.db_conn.commit()
+
+        await ctx.send(embed=success_embed(f"Updated prefix to `{prefix}`"))
 
     @command(help="Get someone's avatar", usage="[user|None]")
     async def avatar(self, ctx: commands.Context, user: Union[discord.User, FetchedUser] = None):
