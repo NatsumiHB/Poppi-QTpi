@@ -2,7 +2,7 @@ from typing import Union
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import command, guild_only
+from discord.ext.commands import command, guild_only, has_guild_permissions
 
 from poppi import success_embed, FetchedUser, Poppi, PoppiEmbed
 
@@ -18,6 +18,7 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
     @command(help="Change the local prefix", usage="[string]")
     @guild_only()
+    @has_guild_permissions(administrator=True)
     async def prefix(self, ctx: commands.Context, prefix: str = None):
         prefix = prefix if prefix is not None else self.bot.default_prefix
 

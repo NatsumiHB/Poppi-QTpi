@@ -4,7 +4,6 @@ import os
 from threading import Thread
 
 import coloredlogs
-import discord
 import waitress
 from dotenv import load_dotenv
 from flask import Flask, redirect
