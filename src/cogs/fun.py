@@ -114,7 +114,7 @@ class Fun(commands.Cog, name="Fun"):
     async def nom(self, ctx: commands.Context, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("nom", "noms", ctx, args))
 
-    @command(help="Clap at someone", usage="[member|string|None]", aliases=["claaaap"])
+    @command(help="Clap at someone", usage="[member|string|None]")
     @guild_only()
     async def clap(self, ctx: commands.Context, *, args: str = None):
         await ctx.send(embed=await self.get_ram_embed("clap", "claps at", ctx, args))
