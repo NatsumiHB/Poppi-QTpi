@@ -59,7 +59,9 @@ class Poppi(commands.Bot):
 
         # Loop through all commands and cogs to generate help
         # Uses a generator in order to only return cogs with commands
-        for cog in (cog for cog in self.cogs if cog not in ["TopGG", "Events"]):
+        blacklist = []
+        for cog in (cog for cog in self.cogs
+                    if len(cog.commands) > 0 and cog not in blacklist):
             # Generate each help string
             bot_commands = "\n".join(f"`{', '.join([bot_command.name] + bot_command.aliases):<{longest_cmd_len}} "
                                      f"{bot_command.usage:<{longest_usage_len}}` -> "
