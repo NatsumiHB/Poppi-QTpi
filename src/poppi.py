@@ -52,7 +52,7 @@ class Poppi(commands.Bot):
 
         # Get longest command name and usage info
         longest_cmd_len = len(max(
-            (', '.join([bot_command.name] + bot_command.aliases) for bot_command in self.commands),
+            (', '.join([bot_command.name, *bot_command.aliases]) for bot_command in self.commands),
             key=len)
         )
         longest_usage_len = len(max((bot_command.usage for bot_command in self.commands), key=len))
@@ -61,7 +61,7 @@ class Poppi(commands.Bot):
         # Uses a generator in order to only return cogs with commands
         blacklist = []
         for cog in (cog for cog in self.cogs
-                    if len(cog.commands) > 0 and cog not in blacklist):
+                    if len(self.get_cog(cog).get_commands()) > 0 and cog not in blacklist):
             # Generate each help string
             bot_commands = "\n".join(f"`{', '.join([bot_command.name] + bot_command.aliases):<{longest_cmd_len}} "
                                      f"{bot_command.usage:<{longest_usage_len}}` -> "
