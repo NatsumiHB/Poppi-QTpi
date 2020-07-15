@@ -70,14 +70,18 @@ class Fun(commands.Cog, name="Fun"):
 
         return fun_embed(f"{author.display_name} {verb} {name}!", await self.get_ram_gif(kind))
 
+    @command(help="Replace a string with another", usage="[string] [string] [string]")
+    async def replace(self, ctx: commands.Context, to_repl: str, what_to: str, *, initial: str):
+        await ctx.send(initial.replace(to_repl, what_to))
+
+    @command(help="Make :clap: text :clap: clap", usage="[string]")
+    async def claptext(self, ctx: commands.Context, *, text: str):
+        await ctx.send(" :clap: ".join(text.split()))
+
     @command(help="Get a random waifu", usage="")
     async def waifu(self, ctx: commands.Context):
         waifu = await self.get_waifu()
         await ctx.send(embed=fun_embed(f"Waifu #{waifu[0]}", waifu[1]))
-
-    @command(help="Replace a string with another", usage="[string] [string] [string]")
-    async def replace(self, ctx: commands.Context, to_repl: str, what_to: str, *, initial: str):
-        await ctx.send(initial.replace(to_repl, what_to))
 
     # Lots of repeated code for RP GIF commands
     @command(help="Hug someone", usage="[member|string|None]")
