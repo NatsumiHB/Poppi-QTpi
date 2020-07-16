@@ -9,7 +9,8 @@ class TopGG(commands.Cog, name="TopGG"):
     def __init__(self, bot):
         self.bot = bot
         self.token = os.getenv("POPPI_DBL_TOKEN")
-        self.dblpy = dbl.DBLClient(self.bot, self.token, autopost=True)
+        if self.token != "debug":
+            self.dblpy = dbl.DBLClient(self.bot, self.token, autopost=True)
 
     @commands.Cog.listener()
     async def on_guild_post(self):
