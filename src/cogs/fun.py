@@ -74,9 +74,9 @@ class Fun(commands.Cog, name="Fun"):
     async def replace(self, ctx: commands.Context, to_repl: str, what_to: str, *, initial: str):
         await ctx.send(initial.replace(to_repl, what_to))
 
-    @command(help="Make :clap: text :clap: clap", usage="[string]")
+    @command(help="Make 👏 text 👏 clap", usage="[string]")
     async def claptext(self, ctx: commands.Context, *, text: str):
-        await ctx.send(" :clap: ".join(text.split()))
+        await ctx.send(" 👏 ".join(text.split()))
 
     @command(help="Get a random waifu", usage="")
     async def waifu(self, ctx: commands.Context):
