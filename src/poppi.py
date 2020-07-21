@@ -4,6 +4,8 @@ import sqlite3
 import discord
 from discord.ext import commands
 
+from api_utils import APIUtils
+
 
 class PoppiEmbed(discord.Embed):
     def __init__(self, **kwargs):
@@ -14,6 +16,9 @@ class PoppiEmbed(discord.Embed):
 class Poppi(commands.Bot):
     def __init__(self, **options):
         self.default_prefix = os.getenv("POPPI_PREFIX")
+
+        # Set API Utils class
+        self.api_utils = APIUtils()
 
         # Help embed for help command and commands_json for web API
         self.help_embed = None

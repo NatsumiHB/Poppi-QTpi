@@ -1,6 +1,5 @@
 import shlex
 
-import aiohttp
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, is_nsfw
 
@@ -24,18 +23,6 @@ def fun_embed(name, url):
 class Fun(commands.Cog, name="Fun"):
     def __init__(self, bot: Poppi):
         self.bot = bot
-        self.client_session = aiohttp.ClientSession()
-
-    async def get_ram_gif(self, kind: str):
-        # Use the cog's ClientSession to get a gif and return the URL to that
-        async with self.client_session.get(f"https://rra.ram.moe/i/r?type={kind}") as r:
-            res = await r.json()
-            return f"https://cdn.ram.moe/{res['path'][3:]}"
-
-    async def get_waifu(self):
-        async with self.client_session.get(f"https://waifus-are.fun-stuff.xyz/get_json") as r:
-            res = await r.json()
-            return res["id"], res["url"]
 
     # args has to be a string, when using a Union you can't easily parse it how it is currently implemented
     # The string element is ignored when mentions are present
@@ -68,7 +55,7 @@ class Fun(commands.Cog, name="Fun"):
         # Finally, set the author
         author = ctx.guild.get_member(self.bot.user.id) if name == ctx.author.display_name else ctx.author
 
-        return fun_embed(f"{author.display_name} {verb} {name}!", await self.get_ram_gif(kind))
+        return fun_embed(f"{author.display_name} {verb} {name}!", await self.bot.api_utils.get_ram_gif(kind))
 
     @command(help="Replace a string with another", usage="[string] [string] [string]")
     async def replace(self, ctx: commands.Context, to_repl: str, what_to: str, *, initial: str):
@@ -80,8 +67,12 @@ class Fun(commands.Cog, name="Fun"):
 
     @command(help="Get a random waifu", usage="")
     async def waifu(self, ctx: commands.Context):
-        waifu = await self.get_waifu()
+        waifu = await self.bot.api_utils.get_waifu()
         await ctx.send(embed=fun_embed(f"Waifu #{waifu[0]}", waifu[1]))
+
+    @command(help="Get a random cat", usage="")
+    async def cat(self, ctx: commands.Context):
+        await ctx.send(embed=fun_embed("Your random cat!", await self.bot.api_utils.get_random_cat()))
 
     # Lots of repeated code for RP GIF commands
     @command(help="Hug someone", usage="[member|string|None]")
