@@ -22,7 +22,7 @@ class Poppi(commands.Bot):
         self.commands_json = None
 
         super().__init__(command_prefix=os.getenv("POPPI_PREFIX"),
-                         activity=discord.Game(name=f"{self.default_prefix}help"),
+                         activity=discord.Game(name=f"{os.getenv('POPPI_PREFIX')}help"),
                          owner_id=int(os.getenv("POPPI_OWNER_ID")),
                          **options)
 
