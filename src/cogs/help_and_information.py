@@ -16,19 +16,19 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
         # Send the bot's help embed which is defined by update_help_embed() in /src/poppi.py
         await ctx.send(embed=self.bot.help_embed)
 
-    @command(help="Change the local prefix", usage="[string]")
-    @guild_only()
-    @has_guild_permissions(administrator=True)
-    async def prefix(self, ctx: commands.Context, prefix: str = None):
-        prefix = prefix if prefix is not None else self.bot.default_prefix
-
-        self.bot.db_cursor.execute(
-            "INSERT INTO prefixes (guild_id, prefix) VALUES (?, ?) ON CONFLICT(guild_id) DO UPDATE SET prefix=?",
-            (ctx.guild.id, prefix, prefix,)
-        )
-        self.bot.db_conn.commit()
-
-        await ctx.send(embed=success_embed(f"Updated prefix to `{prefix}`"))
+    # @command(help="Change the local prefix", usage="[string]")
+    # @guild_only()
+    # @has_guild_permissions(administrator=True)
+    # async def prefix(self, ctx: commands.Context, prefix: str = None):
+    #     prefix = prefix if prefix is not None else self.bot.default_prefix
+    #
+    #     self.bot.db_cursor.execute(
+    #         "INSERT INTO prefixes (guild_id, prefix) VALUES (?, ?) ON CONFLICT(guild_id) DO UPDATE SET prefix=?",
+    #         (ctx.guild.id, prefix, prefix,)
+    #     )
+    #     self.bot.db_conn.commit()
+    #
+    #     await ctx.send(embed=success_embed(f"Updated prefix to `{prefix}`"))
 
     @command(help="Get someone's avatar", usage="[user|None]")
     async def avatar(self, ctx: commands.Context, user: Union[discord.User, FetchedUser] = None):
