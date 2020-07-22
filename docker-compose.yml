@@ -5,6 +5,7 @@ services:
         image: natsuwumi/poppi:latest
         volumes:
           - ./.env:/srv/poppi/.env
+          - ./bot_db.sqlite:/srv/poppi/bot_db.sqlite
         ports:
           - 5000:5000
         networks:
