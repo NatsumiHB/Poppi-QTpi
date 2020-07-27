@@ -84,7 +84,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def dr(self, ctx: commands.Context, role: discord.Role):
+    async def dr(self, ctx: commands.Context, *, role: discord.Role):
         await role.delete()
         await ctx.send(embed=success_embed(f"Successfully deleted {role.name}", color=role.color))
 
@@ -92,7 +92,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def ar(self, ctx: commands.Context, member: discord.Member, role: discord.Role):
+    async def ar(self, ctx: commands.Context, member: discord.Member, *, role: discord.Role):
         await member.add_roles(role)
         await ctx.send(embed=success_embed(f"Successfully added {role.name} to {member.display_name}",
                                            color=role.color))
@@ -101,7 +101,7 @@ class Roles(commands.Cog, name="Roles"):
     @guild_only()
     @has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(manage_roles=True)
-    async def rr(self, ctx: commands.Context, member: discord.Member, role: discord.Role):
+    async def rr(self, ctx: commands.Context, member: discord.Member, *, role: discord.Role):
         await member.remove_roles(role)
         await ctx.send(embed=success_embed(f"Successfully removed {role.name} to {member.display_name}",
                                            color=role.color))
