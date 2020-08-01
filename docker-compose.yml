@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-    bot:
-        image: natsuwumi/poppi:latest
-        volumes:
-          - ./.env:/srv/poppi/.env
-        ports:
-          - 5000:5000
-        networks:
-          - proxy_net
+  bot:
+    image: natsuwumi/poppi:latest
+    volumes:
+      - ./.env:/srv/poppi/.env
+    ports:
+      - 5000:5000
+    networks:
+      - proxy_net
 
 networks:
   proxy_net:

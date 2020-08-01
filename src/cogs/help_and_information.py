@@ -38,6 +38,8 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
     @command(help="Send a support DM to my owner", usage="[message]")
     async def support(self, ctx: commands.Context, *, msg):
         user = await self.bot.fetch_user(self.bot.owner_id)
-        await user.send(f"Support request from {ctx.author.name}#{ctx.author.discriminator}:\n\n{msg}")
+        await user.send(f"Support request from {ctx.author.name}#{ctx.author.discriminator} "
+                        f"({ctx.author.mention}, ID: {ctx.author.id}):"
+                        f"\n\n{msg}")
 
         await ctx.send(embed=success_embed())
