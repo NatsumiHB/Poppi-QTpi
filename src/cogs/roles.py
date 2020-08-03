@@ -52,7 +52,7 @@ class Roles(commands.Cog, name="Roles"):
             return m.author == ctx.author and m.channel == ctx.channel
 
         async def abort_check(m: discord.Message):
-            if m.content == "exit":
+            if m.content.lower() == "exit":
                 await m.channel.send("Aborted!")
                 return True
 
