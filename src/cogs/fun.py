@@ -69,7 +69,7 @@ class Fun(commands.Cog, name="Fun"):
     async def cat(self, ctx: commands.Context):
         await ctx.send(embed=fun_embed("Your random cat!", await self.bot.api_utils.get_random_cat()))
 
-    @command(help="Get a random waifu", usage="[int|None]")
+    @command(help="Get a waifu", usage="[int|None]")
     async def waifu(self, ctx: commands.Context, waifu_id: int = None):
         waifu = await self.bot.api_utils.get_waifu(waifu_id)
         await ctx.send(embed=fun_embed(f"Waifu #{waifu[0]}", waifu[1]))
