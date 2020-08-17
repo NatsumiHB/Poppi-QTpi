@@ -48,12 +48,12 @@ class Events(commands.Cog):
 
         # Invoked command threw error
         if isinstance(error, commands.CommandInvokeError):
-            logging.warning(str(error))
+            logging.warning(error)
             try:
-                return await ctx.send(embed=error_embed(str(error)))
+                return await ctx.send(embed=error_embed(error))
             except Exception as e:
-                logging.warning(f"Tried sending error_embed in CommandInvokeError but couldn't: {error}")
+                logging.warning(f"Tried sending error_embed in CommandInvokeError but couldn't: {e}")
 
         # Ignore errors
         else:
-            return logging.warning(f"Error: {str(error)}")
+            return logging.warning(f"Error: {error}")

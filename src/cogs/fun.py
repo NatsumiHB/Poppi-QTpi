@@ -65,14 +65,14 @@ class Fun(commands.Cog, name="Fun"):
     async def claptext(self, ctx: commands.Context, *, text: str):
         await ctx.send(" 👏 ".join(text.split()))
 
-    @command(help="Get a random waifu", usage="")
-    async def waifu(self, ctx: commands.Context):
-        waifu = await self.bot.api_utils.get_waifu()
-        await ctx.send(embed=fun_embed(f"Waifu #{waifu[0]}", waifu[1]))
-
     @command(help="Get a random cat", usage="")
     async def cat(self, ctx: commands.Context):
         await ctx.send(embed=fun_embed("Your random cat!", await self.bot.api_utils.get_random_cat()))
+
+    @command(help="Get a random waifu", usage="[int|None]")
+    async def waifu(self, ctx: commands.Context, waifu_id: int = None):
+        waifu = await self.bot.api_utils.get_waifu(waifu_id)
+        await ctx.send(embed=fun_embed(f"Waifu #{waifu[0]}", waifu[1]))
 
     # Lots of repeated code for RP GIF commands
     @command(help="Hug someone", usage="[member|string|None]")

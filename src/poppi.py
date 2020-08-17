@@ -30,7 +30,7 @@ class Poppi(commands.Bot):
     def update_help(self):
         self.help_embed = PoppiEmbed(title=f"Help for {self.user.display_name}") \
             .set_thumbnail(url=self.user.avatar_url) \
-            .set_footer(text=f"Running discord.py v.{discord.__version__} | '?' means argument is optional")
+            .set_footer(text=f"Running discord.py v.{discord.__version__}")
 
         # Get longest command name and usage info
         longest_cmd_len = len(max(
@@ -79,4 +79,4 @@ def success_embed(msg="Success!", color: discord.Color = discord.Color.green()):
 
 # Negative reactions
 def error_embed(err="Error!", color: discord.Color = discord.Color.red()):
-    return discord.Embed(description=err, color=color)
+    return discord.Embed(description=str(err), color=color)  # Errors don't automatically get turned into an str
