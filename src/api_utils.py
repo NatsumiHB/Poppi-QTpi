@@ -1,5 +1,4 @@
 import aiohttp
-from aiohttp import ContentTypeError
 from discord.ext import commands
 
 
