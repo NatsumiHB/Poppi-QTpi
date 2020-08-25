@@ -1,5 +1,5 @@
 ﻿# Poppi-QTpi
-[![Actions Status](https://github.com/NatsumiHB/Poppi-QTpi/workflows/Publish Docker image/badge.svg)](https://github.com/NatsumiHB/Poppi-QTpi/actions)
+[![Actions Status](https://github.com/NatsumiHB/Poppi-QTpi/workflows/Publish%20Docker%20image/badge.svg)](https://github.com/NatsumiHB/Poppi-QTpi/actions)
 
 ![Poppi QTπ avatar](https://images.discordapp.net/avatars/430092067218128916/30f9a115a465fd5a523c332398ccea84.png)
 
