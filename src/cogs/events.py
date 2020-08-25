@@ -17,7 +17,8 @@ class Events(commands.Cog):
         # Log basic info
         logging.info(f"{self.bot.user.name} running!")
         logging.info(f"Default prefix is \"{self.bot.command_prefix}\"")
-        logging.info(f"Currently {len(self.bot.commands)} commands in {len(self.bot.cogs)} cogs are registered")
+        logging.info(f"Currently {len(self.bot.commands)} commands "
+                     f"in a total of {len(self.bot.cogs)} cogs are registered")
         logging.info(f"On {len(self.bot.guilds)} guilds "
                      f"with a total of {sum(len(g.members) for g in self.bot.guilds)} members")
 
