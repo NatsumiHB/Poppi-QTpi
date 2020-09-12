@@ -42,10 +42,10 @@
         },
         "attrs": {
             "hashes": [
-                "sha256:0ef97238856430dcf9228e07f316aefc17e8939fc8507e18c6501b761ef1a42a",
-                "sha256:2867b7b9f8326499ab5b0e2d12801fa5c98842d2cbd22b35112ae04bf85b4dff"
+                "sha256:26b54ddbbb9ee1d34d5d3668dd37d6cf74990ab23c828c2888dccdceee395594",
+                "sha256:fce7fc47dfc976152e82d53ff92fa0407700c21acd20886a13777a0d20e655dc"
             ],
-            "version": "==20.1.0"
+            "version": "==20.2.0"
         },
         "chardet": {
             "hashes": [
@@ -71,17 +71,24 @@
         },
         "dblpy": {
             "hashes": [
-                "sha256:75112dcbcb57c5ec5dc299d3bc840621b90e5e6d3e0035c5875bee407f6b27bf",
-                "sha256:806c531501f2e757498889471d1a6206fd4bce3cdee6ebf24843c49f32756cf3"
+                "sha256:2d7d746ee7e7b3a2597f485ebf4089e7baabdcf1717743228991bd988c69e1b5",
+                "sha256:744f5ee9493a945e5907466754b2dce4735715b34daabb9e6264f76ec79818c9"
             ],
             "index": "pypi",
-            "version": "==0.3.4"
+            "version": "==0.4.0"
         },
         "discord-py": {
             "hashes": [
                 "sha256:98ea3096a3585c9c379209926f530808f5fcf4930928d8cfb579d2562d119570"
             ],
             "index": "pypi",
+            "version": "==1.4.1"
+        },
+        "discord.py": {
+            "hashes": [
+                "sha256:98ea3096a3585c9c379209926f530808f5fcf4930928d8cfb579d2562d119570",
+                "sha256:f9decb3bfa94613d922376288617e6a6f969260923643e2897f4540c34793442"
+            ],
             "version": "==1.4.1"
         },
         "flask": {
