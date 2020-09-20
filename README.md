@@ -1,7 +1,7 @@
 ﻿# Poppi-QTpi
 [![Actions Status](https://github.com/NatsumiHB/Poppi-QTpi/workflows/Publish%20Docker%20image/badge.svg)](https://github.com/NatsumiHB/Poppi-QTpi/actions)
 
-![Poppi QTπ avatar](https://images.discordapp.net/avatars/430092067218128916/30f9a115a465fd5a523c332398ccea84.png)
+![Poppi QTπ avatar](https://api.poppi-bot.xyz/avatar)
 
 Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and much more!
 
@@ -18,10 +18,9 @@ To use Poppi QTπ, follow these steps:
 and then run the bot with `pipenv run python ./src/main.py`**
 
 #### To use Docker do this:
-- Create a network called `proxy_net`
-- Run `docker-compose up -d` (or without `-d` if you do not want the bot to run as a daemon)
+You can just run the image (`natsuwumi/poppi`). Make sure to set the required environmental variables/`.env` file in your docker command/compose file.
 
-If you wish to run Poppi QTπ's API without a dockerized reverse proxy, you will need to publish port 5000 in the `docker-compose.yml` file.
+The API runs on port 5000, so if you wish to use that make sure to publish that port.
 
 #### If you wish to run Poppi QTπ without some specific environment variables set, you can refer to this table to make the needed code changes:
 | Variable            | Where                                 |
