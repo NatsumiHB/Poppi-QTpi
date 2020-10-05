@@ -38,4 +38,4 @@ jobs:
           push: true
           tags: |
             natsuwumi/poppi:latest
-            ghcr.io/NatsumiHB/poppi:latest
+            ghcr.io/natsumihb/poppi:latest
