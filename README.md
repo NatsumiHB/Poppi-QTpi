@@ -18,11 +18,13 @@ To use Poppi QTπ, follow these steps:
 and then run the bot with `pipenv run python ./src/main.py`**
 
 #### To use Docker do this:
-You can just run the image (`natsuwumi/poppi`). Make sure to set the required environmental variables/`.env` file in your docker command/compose file.
+You can just run the image (`natsuwumi/poppi`*). Make sure to set the required environmental variables/`.env` file in your docker command/compose file.
 
 **Keep in mind that docker-compose's `.env` support does not properly work with variables that end in a whitespace.**
 
 The API runs on port 5000, so if you wish to use that make sure to publish that port.
+
+*Alternatively, you can use the same image hosted on GitHub's Container Registry (check the packages tab for instructions)
 
 #### If you wish to run Poppi QTπ without some specific environment variables set, you can refer to this table to make the needed code changes:
 | Variable            | Where                                 |
