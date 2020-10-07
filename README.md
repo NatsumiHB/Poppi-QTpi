@@ -24,8 +24,6 @@ You can just run the image (`natsuwumi/poppi`*). Make sure to set the required e
 
 The API runs on port 5000, so if you wish to use that make sure to publish that port.
 
-*Alternatively, you can use the same image hosted on GitHub's Container Registry (check the packages tab for instructions)
-
 #### If you wish to run Poppi QTπ without some specific environment variables set, you can refer to this table to make the needed code changes:
 | Variable            | Where                                 |
 | :-----------------: | :-----------------------------------: |
