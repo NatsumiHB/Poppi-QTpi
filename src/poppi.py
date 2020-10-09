@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 
 from api_utils import APIUtils
+import platform
 
 
 class PoppiEmbed(discord.Embed):
@@ -30,7 +31,7 @@ class Poppi(commands.Bot):
     def update_help(self):
         self.help_embed = PoppiEmbed(title=f"Help for {self.user.display_name}") \
             .set_thumbnail(url=self.user.avatar_url) \
-            .set_footer(text=f"Running discord.py v.{discord.__version__}")
+            .set_footer(text=f"Running discord.py v.{discord.__version__} | Python v.{platform.python_version()}")
 
         # Get longest command name and usage info
         longest_cmd_len = len(max(
