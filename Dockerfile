@@ -3,8 +3,7 @@ COPY ./ /srv/poppi/
 WORKDIR /srv/poppi/
 
 RUN apt-get update
-RUN apt-get upgrade
-RUN apt-get base-devel
+RUN apt-get install build-essential -y
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
