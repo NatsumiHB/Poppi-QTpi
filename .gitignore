@@ -130,4 +130,7 @@ dmypy.json
 
 .idea
 
-bot_db.*
+arango_data
+docker-compose.yml
+config.json
+img
