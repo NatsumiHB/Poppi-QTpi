@@ -5,7 +5,8 @@ import discord.ext.commands
 from discord.ext import commands
 from discord.ext.commands import command, guild_only, has_guild_permissions, bot_has_guild_permissions
 
-from poppi import success_embed, Poppi
+from poppi import Poppi
+from poppi_helpers import success_embed
 
 
 class Roles(commands.Cog, name="Roles"):

@@ -5,7 +5,8 @@ from discord.ext import commands
 from discord.ext.commands import command, guild_only, has_guild_permissions, bot_has_guild_permissions, \
     has_permissions, bot_has_permissions
 
-from poppi import success_embed, error_embed, Poppi, FetchedUser
+from poppi import Poppi
+from poppi_helpers import PoppiError, success_embed, FetchedUser
 
 
 class Moderation(commands.Cog, name="Moderation"):
@@ -58,7 +59,7 @@ class Moderation(commands.Cog, name="Moderation"):
     async def clear(self, ctx: commands.Context, amount: int):
         # Check for boundaries (no more than 100 msgs deleted at once)
         if amount > 100:
-            return await ctx.send(embed=error_embed("Please specify an amount <= 100!"))
+            raise PoppiError("Please specify an amount <= 100!")
 
         deleted = await ctx.channel.purge(limit=amount)
 

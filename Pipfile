@@ -11,7 +11,8 @@ coloredlogs = "*"
 dblpy = "*"
 flask = "*"
 waitress = "*"
-python-dotenv = "*"
+pyarango = "*"
+disputils = "*"
 
 [requires]
 python_version = "3.9"

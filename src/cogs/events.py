@@ -2,7 +2,8 @@ import logging
 
 from discord.ext import commands
 
-from poppi import error_embed, Poppi
+from poppi import Poppi
+from poppi_helpers import error_embed, PoppiError
 
 
 class Events(commands.Cog):
@@ -30,13 +31,8 @@ class Events(commands.Cog):
         if isinstance(error, commands.BotMissingPermissions):
             return await ctx.send(embed=error_embed("I am lacking the permissions to do that!"))
 
-        if isinstance(error, commands.BadArgument):
+        if isinstance(error, commands.BadArgument) or isinstance(error, commands.BadUnionArgument):
             return await ctx.send(embed=error_embed("Bad argument provided! (Consult help for usage information)"))
-
-        if isinstance(error, commands.BadUnionArgument):
-            return await ctx.send(
-                embed=error_embed("Bad (union) argument provided! (Consult help for usage information)")
-            )
 
         if isinstance(error, commands.MissingRequiredArgument):
             return await ctx.send(embed=error_embed("Please provide all required arguments! (Consult help for usage "
@@ -47,6 +43,10 @@ class Events(commands.Cog):
 
         if isinstance(error, commands.CommandNotFound):
             return logging.warning(f"Unknown command called: {ctx.message.content}")
+
+        # Poppi Error
+        if isinstance(error, PoppiError):
+            return await ctx.send(embed=error_embed(error))
 
         # Invoked command threw error
         if isinstance(error, commands.CommandInvokeError):
