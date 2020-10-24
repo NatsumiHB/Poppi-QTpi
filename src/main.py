@@ -11,6 +11,7 @@ from cogs.events import Events
 from cogs.fun import Fun
 from cogs.help_and_information import HelpAndInformation
 from cogs.moderation import Moderation
+from cogs.money import Money
 from cogs.profile import Profile
 from cogs.roles import Roles
 from poppi import Poppi
@@ -29,6 +30,7 @@ bot.add_cog(Moderation(bot))
 bot.add_cog(Roles(bot))
 bot.add_cog(Fun(bot))
 bot.add_cog(Profile(bot))
+bot.add_cog(Money(bot))
 bot.add_cog(TopGG(bot))
 
 # Set up web API
@@ -55,5 +57,5 @@ Thread(target=waitress.serve, args=(api,), kwargs=dict(host="0.0.0.0", port=5000
 
 # Run bot
 loop = asyncio.get_event_loop()
-loop.create_task(bot.run(bot.config["token"]))
+loop.create_task(bot.run(bot.config.config["token"]))
 Thread(target=loop.run_forever).start()

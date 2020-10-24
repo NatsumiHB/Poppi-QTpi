@@ -1,4 +1,3 @@
-import json
 import platform
 
 import discord
@@ -6,7 +5,8 @@ from discord.ext import commands
 from pyArango.connection import Connection
 from pyArango.theExceptions import CreationError
 
-from api_utils import APIUtils
+from api_helpers import APIUtils
+from config import Config
 from poppi_helpers import PoppiEmbed
 from profile_helpers import ProfileHelpers
 
@@ -19,16 +19,16 @@ class Poppi(commands.Bot):
         # Help embed for help command and commands_json for web API
         self.help_embeds = []
         self.commands_json = None
+        self.store_embed = None
 
-        # Load config
-        with open("../config.json", "r") as config:
-            self.config = json.loads(config.read())
+        # Create config
+        self.config = Config()
 
         # Database stuff for the profile system
         conn = Connection(
             username="root",
-            password=self.config["db_password"],
-            arangoURL=f"http://{self.config['db_hostname']}:8529"
+            password=self.config.config["db_password"],
+            arangoURL=f"http://{self.config.config['db_hostname']}:8529"
         )
         try:
             db = conn.createDatabase(name="poppi")
@@ -40,12 +40,22 @@ class Poppi(commands.Bot):
         except CreationError:
             profiles = db["profiles"]
 
-        # DB Helpers
-        self.profile_helpers = ProfileHelpers(profiles, self.config)
+        try:
+            self.store_items = db.createCollection(name="store_items")
 
-        super().__init__(command_prefix=self.config["prefix"],
-                         activity=discord.Game(name=f"{self.config['prefix']}help"),
-                         owner_id=self.config["owner_id"],
+            for item in self.config.config["base_store_items"]:
+                store_item = self.store_items.createDocument()
+                store_item.set(item)
+                store_item.save()
+        except CreationError:
+            self.store_items = db["store_items"]
+
+        # DB Helpers
+        self.profile_helpers = ProfileHelpers(profiles, self.store_items, self.config)
+
+        super().__init__(command_prefix=self.config.config["prefix"],
+                         activity=discord.Game(name=f"{self.config.config['prefix']}help"),
+                         owner_id=self.config.config["owner_id"],
                          **options)
 
     # Updates the help embed and commands JSON to contain the most current cogs and commands
@@ -106,3 +116,26 @@ class Poppi(commands.Bot):
             in self.cogs
             if len(self.get_cog(cog_name).get_commands()) > 0 and cog not in blacklist
         }
+
+    def update_store(self):
+        longest_id_len = len(max(
+            (str(item["id"])
+             for item
+             in self.store_items.fetchAll()),
+            key=len)
+        )
+        longest_name_len = len(max(
+            (str(item["name"])
+             for item
+             in self.store_items.fetchAll()),
+            key=len)
+        )
+
+        self.store_embed = PoppiEmbed() \
+            .set_thumbnail(url=self.user.avatar_url) \
+            .add_field(name="Money",
+                       value="\n".join(f"`{item['id']:<{longest_id_len}}: {item['name']:{longest_name_len}}` "
+                                       f"({item['emoji']})"
+                                       for item
+                                       in self.store_items.fetchAll()),
+                       inline=False)

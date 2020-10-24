@@ -15,6 +15,9 @@ class Events(commands.Cog):
         # Update the help embed and commands JSON
         self.bot.update_help()
 
+        # Update store embed
+        self.bot.update_store()
+
         # Log basic info
         logging.info(f"{self.bot.user.name} running!")
         logging.info(f"Default prefix is \"{self.bot.command_prefix}\"")

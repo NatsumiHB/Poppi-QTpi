@@ -32,8 +32,16 @@ class Profile(commands.Cog, name="Profile"):
                        .add_field(name="Profile description",
                                   value=profile["description"] or "No description set",
                                   inline=False)
-                       .add_field(name="Money",
-                                  value=profile["money"],
+                       .add_field(name="Balance",
+                                  value=f"{profile['money']} {self.bot.config.money_config['currency']}",
+                                  inline=True)
+                       .add_field(name="Inventory",
+                                  value=", ".join(
+                                      self.bot.profile_helpers.get_item_by_id(item_id)["emoji"]
+                                      for item_id
+                                      in profile["inventory"]
+                                      if len(profile["inventory"]) > 0
+                                  ),
                                   inline=True))
 
     @profile.command(help="Set your nickname", usage="[string]")
