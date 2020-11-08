@@ -1,7 +1,7 @@
 ﻿# Poppi-QTpi
 [![Actions Status](https://github.com/NatsumiHB/Poppi-QTpi/workflows/Publish%20Docker%20image/badge.svg)](https://github.com/NatsumiHB/Poppi-QTpi/actions)
 
-![Poppi QTπ avatar](https://api.poppi-bot.xyz/avatar | width=256x)
+![Poppi QTπ avatar](https://api.poppi-bot.xyz/avatar | width=256)
 
 Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and much more!
 
