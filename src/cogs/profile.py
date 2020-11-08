@@ -2,10 +2,10 @@ from inspect import signature
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import group
+from discord.ext.commands import group, command
 
 from poppi import Poppi, PoppiEmbed
-from poppi_helpers import success_embed
+from poppi_helpers import success_embed, error_embed, PoppiError
 
 
 class Profile(commands.Cog, name="Profile"):
@@ -15,9 +15,8 @@ class Profile(commands.Cog, name="Profile"):
     @group(help="See a profile", usage="[user|None]", invoke_without_command=True)
     async def profile(self, ctx: commands.Context, member: discord.Member = None):
         member = member or ctx.author
-        create_on_not_found = member.id == ctx.author.id
 
-        profile = self.bot.profile_helpers.get_or_create_profile(member.id, create_on_not_found)
+        profile = self.bot.profile_helpers.get_or_create_profile(member.id, create_on_not_found=True)
         profile_author = f"{profile['nickname']} ({member.name})" if profile["nickname"] is not None else member.name
 
         avatar_url = profile["avatar_url"]
@@ -26,12 +25,18 @@ class Profile(commands.Cog, name="Profile"):
                 or await self.bot.profile_helpers.is_valid_avatar(avatar_url) is False:
             avatar_url = member.avatar_url
 
+        partner = (await self.bot.fetch_user(profile["partner"])).display_name if profile["partner"] is not None \
+            else "None"
+
         await ctx.send(embed=PoppiEmbed()
                        .set_author(name=f"Profile of {profile_author}", icon_url=member.avatar_url)
                        .set_thumbnail(url=avatar_url)
                        .add_field(name="Profile description",
                                   value=profile["description"] or "No description set",
                                   inline=False)
+                       .add_field(name="Partner",
+                                  value=partner,
+                                  inline=True)
                        .add_field(name="Balance",
                                   value=f"{profile['money']} {self.bot.config.money_config['currency']}",
                                   inline=True)
@@ -41,7 +46,7 @@ class Profile(commands.Cog, name="Profile"):
                                       for item_id
                                       in profile["inventory"]
                                       if len(profile["inventory"]) > 0
-                                  ),
+                                  ) or "Empty",
                                   inline=True))
 
     @profile.command(help="Set your nickname", usage="[string]")
@@ -68,3 +73,45 @@ class Profile(commands.Cog, name="Profile"):
         await self.bot.profile_helpers.set_profile_key(ctx.author.id, "avatar_url", avatar_url)
 
         await ctx.send(embed=success_embed("Successfully changed avatar"))
+
+    @command(help="Marry someone", usage="[Member]")
+    async def marry(self, ctx: commands.Context, member: discord.Member):
+        def check(m: discord.Message):
+            return m.author == member and m.channel == ctx.channel
+
+        if self.bot.profile_helpers \
+                .inventory_item_count(ctx.author.id,
+                                      self.bot.profile_helpers.get_item_by_name("Wedding Ring")["id"]) == 0:
+            raise PoppiError("You need a wedding ring to marry someone!")
+
+        await ctx.send(f"{member.mention}, do you want to marry {ctx.author.mention}?")
+
+        response = await self.bot.wait_for("message", check=check, timeout=10)
+        if response.content.lower() == "yes":
+            self.bot.profile_helpers.marry(ctx.author.id, member.id)
+
+            await ctx.send(embed=success_embed(f"You two are now married!"))
+        elif response.content.lower() == "no":
+            await ctx.send(embed=error_embed(f"{member.display_name} did not accept the proposal!"))
+
+    @command(help="Divorce from your current partner", usage="")
+    async def divorce(self, ctx: commands.Context):
+        profile = self.bot.profile_helpers.get_or_create_profile(ctx.author.id, create_on_not_found=True)
+
+        if profile["partner"] is None:
+            raise PoppiError("You aren't married to anyone!")
+
+        partner = await self.bot.fetch_user(profile["partner"])
+
+        def check(m: discord.Message):
+            return m.author == ctx.author and m.channel == ctx.channel
+
+        await ctx.send(f"Are you sure you want to divorce from {partner.display_name}?")
+
+        response = await self.bot.wait_for("message", check=check, timeout=10)
+        if response.content.lower() == "yes":
+            self.bot.profile_helpers.divorce(ctx.author.id)
+
+            await ctx.send(embed=success_embed(f"You and {partner.display_name} are now divorced!"))
+        elif response.content.lower() == "no":
+            await ctx.send(embed=error_embed(f"Canceled divorce!"))

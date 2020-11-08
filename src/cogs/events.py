@@ -1,3 +1,4 @@
+import asyncio
 import logging
 
 from discord.ext import commands
@@ -28,37 +29,40 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
+        error_message = "An unknown error occured!"
+
         if isinstance(error, commands.MissingPermissions):
-            return await ctx.send(embed=error_embed("You are lacking permissions!"))
+            error_message = "You are lacking permissions!"
 
         if isinstance(error, commands.BotMissingPermissions):
-            return await ctx.send(embed=error_embed("I am lacking the permissions to do that!"))
+            error_message = "I am lacking the permissions to do that!"
 
         if isinstance(error, commands.BadArgument) or isinstance(error, commands.BadUnionArgument):
-            return await ctx.send(embed=error_embed("Bad argument provided! (Consult help for usage information)"))
+            error_message = "Bad argument provided! (Consult help for usage information)"
 
         if isinstance(error, commands.MissingRequiredArgument):
-            return await ctx.send(embed=error_embed("Please provide all required arguments! (Consult help for usage "
-                                                    "information)"))
+            error_message = "Please provide all required arguments! (Consult help for usage information)"
 
         if isinstance(error, commands.NSFWChannelRequired):
-            return await ctx.send(embed=error_embed("This command only works in NSFW channels!"))
+            error_message = "This command only works in NSFW channels!"
 
         if isinstance(error, commands.CommandNotFound):
-            return logging.warning(f"Unknown command called: {ctx.message.content}")
+            error_message = f"Unknown command called: {ctx.message.content}"
 
-        # Poppi Error
         if isinstance(error, PoppiError):
-            return await ctx.send(embed=error_embed(error))
+            error_message = error
 
-        # Invoked command threw error
         if isinstance(error, commands.CommandInvokeError):
-            logging.warning(error)
-            try:
-                return await ctx.send(embed=error_embed(error))
-            except Exception as e:
-                logging.warning(f"Tried sending error_embed in CommandInvokeError but couldn't: {e}")
+            if isinstance(error.original, asyncio.TimeoutError):
+                error_message = "Command timed out!"
 
-        # Ignore errors
+            logging.warning(error)
+
+        # Everything else
         else:
             return logging.warning(f"Error: {error}")
+
+        try:
+            await ctx.send(embed=error_embed(error_message))
+        except Exception as e:
+            logging.warning(f"Tried sending error_embed but couldn't: {e}")

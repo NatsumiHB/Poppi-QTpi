@@ -43,13 +43,13 @@ class ProfileHelpers:
         max_length = self.config.profile_restraints[f"max_{key}_length"]
 
         if profile.validate() is False:
-            raise PoppiError(f"Error validating {human_key}")
+            raise PoppiError(f"Error validating {human_key}!")
 
         if key == "avatar_url":
             await self.validate_avatar(value)
 
         if 0 < max_length < len(value):
-            raise PoppiError(f"{human_key} can't be longer than {max_length}")
+            raise PoppiError(f"{human_key} can't be longer than {max_length}!")
         else:
             profile.patch()
 
@@ -63,7 +63,7 @@ class ProfileHelpers:
         profile = self.get_or_create_profile(member_id, create_on_not_found=True)
 
         if profile["money"] < amount:
-            raise PoppiError(f"You don't have enough {self.config.money_config['currency']} to do that")
+            raise PoppiError(f"You don't have enough {self.config.money_config['currency']} to do that!")
         else:
             profile["money"] -= amount
             profile.patch()
@@ -75,9 +75,12 @@ class ProfileHelpers:
     def redeem_daily(self, member_id: int):
         profile = self.get_or_create_profile(member_id, create_on_not_found=False)
 
-        if profile.last_daily is not None \
-                and abs((datetime.utcnow() - datetime.strptime(profile.last_daily, "%Y-%m-%d %H:%M:%S.%f")).days) < 1:
-            raise PoppiError(f"You already redeemed your daily {self.config.money_config['currency']} in the last 24h")
+        delta_m = abs((datetime.utcnow() - datetime.strptime(profile.last_daily, "%Y-%m-%d %H:%M:%S.%f"))
+                      .total_seconds()) / 60 / 60 if profile["last_daily"] is not None else 24 * 60
+
+        if delta_m < 24 * 60:
+            raise PoppiError(f"You can next redeem your daily {self.config.money_config['currency']} "
+                             f"in {round(24 - delta_m)}h!")
 
         self.add_money(member_id, self.config.money_config["daily_money"])
 
@@ -89,10 +92,20 @@ class ProfileHelpers:
             if item["id"] == item_id:
                 return item
 
-        raise PoppiError("That item couldn't be found")
+        raise PoppiError("That item couldn't be found!")
 
-    def check_inventory_for_item(self, member_id: int, item_id: int):
+    def get_item_by_name(self, item_name: str):
+        for item in self.store_items.fetchAll():
+            if item["name"] == item_name:
+                return item
+
+        raise PoppiError("That item couldn't be found!")
+
+    def inventory_item_count(self, member_id: int, item_id: int):
         profile = self.get_or_create_profile(member_id, create_on_not_found=True)
+
+        if len(profile["inventory"]) == 0:
+            return 0
 
         return len(
             [inventory_item_id
@@ -104,12 +117,22 @@ class ProfileHelpers:
     def buy_item(self, member_id: int, item: dict):
         profile = self.get_or_create_profile(member_id, create_on_not_found=True)
 
-        if self.check_inventory_for_item(member_id, item["id"]) >= item["max_amount"]:
-            raise PoppiError(f"You can't have more than {item['max_amount']} of this item")
+        if self.inventory_item_count(member_id, item["id"]) >= item["max_amount"]:
+            raise PoppiError(f"You can't have more than {item['max_amount']} of this item!")
 
         self.subtract_money(member_id, item["price"])
 
-        profile["inventory"].append(item["id"])
+        inv = profile["inventory"]
+        inv.append(item["id"])
+        profile["inventory"] = inv
+        profile.patch()
+
+    def remove_item(self, member_id: int, item_id: int):
+        profile = self.get_or_create_profile(member_id, create_on_not_found=True)
+
+        inv = profile["inventory"]
+        inv.remove(item_id)
+        profile["inventory"] = inv
         profile.patch()
 
     async def validate_avatar(self, url: str):
@@ -126,3 +149,30 @@ class ProfileHelpers:
             return True
         except PoppiError:
             return False
+
+    def marry(self, first_id: int, second_id: int):
+        first_profile = self.get_or_create_profile(first_id, create_on_not_found=True)
+        second_profile = self.get_or_create_profile(second_id, create_on_not_found=True)
+
+        if first_profile["partner"] is not None:
+            raise PoppiError("You are already married!")
+        if second_profile["partner"] is not None:
+            raise PoppiError("The person you are trying to marry is already married!")
+
+        first_profile["partner"] = second_id
+        second_profile["partner"] = first_id
+
+        first_profile.patch()
+        second_profile.patch()
+
+        self.remove_item(first_id, self.get_item_by_name("Wedding Ring")["id"])
+
+    def divorce(self, member_id: int):
+        member_profile = self.get_or_create_profile(member_id, create_on_not_found=False)
+        partner_profile = self.get_or_create_profile(member_profile["partner"], create_on_not_found=False)
+
+        member_profile["partner"] = None
+        partner_profile["partner"] = None
+
+        member_profile.patch()
+        partner_profile.patch()

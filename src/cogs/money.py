@@ -5,7 +5,7 @@ from poppi import Poppi
 from poppi_helpers import success_embed, PoppiEmbed
 
 
-class Money(commands.Cog, name="Profile"):
+class Money(commands.Cog, name="Money"):
     def __init__(self, bot: Poppi):
         self.bot = bot
 
@@ -36,3 +36,12 @@ class Money(commands.Cog, name="Profile"):
         self.bot.profile_helpers.buy_item(ctx.author.id, item)
 
         await ctx.send(embed=success_embed(f"Successfully bought one {item['name']}"))
+
+    @command(help="Show an item's description", usage="[Item ID]")
+    async def iteminfo(self, ctx: commands.Context, item_id: int):
+        item = self.bot.profile_helpers.get_item_by_id(item_id)
+
+        await ctx.send(embed=PoppiEmbed()
+                       .add_field(name=item["name"],
+                                  value=f"Price: {item['price']}\n"
+                                        f"Description: {item['description']}"))
