@@ -3,9 +3,9 @@ on:
   push:
     branches:
       - master
-  paths:
-    - README.md
-    - .github/workflows/update_description.yml
+    paths:
+      - README.md
+      - .github/workflows/update_description.yml
 jobs:
   update_description:
     runs-on: ubuntu-latest
