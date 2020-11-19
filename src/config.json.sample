@@ -25,7 +25,6 @@
   },
   "base_store_items": [
     {
-      "id": 1,
       "name": "Wedding Ring",
       "price": 2000,
       "emoji": "\uD83D\uDC8D",
@@ -33,11 +32,17 @@
       "max_amount": 1
     },
     {
-      "id": 2,
       "name": "Heart",
       "price": 500,
       "emoji": "\u2764\uFE0F",
       "description": "Just a nice-looking heart",
+      "max_amount": 1
+    },
+    {
+      "name": "Sword",
+      "price": 2000,
+      "emoji": "\u2694\uFE0F",
+      "description": "A sword for the collection",
       "max_amount": 1
     }
   ]

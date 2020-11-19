@@ -16,12 +16,16 @@ To use Poppi QTπ, follow these steps:
 and then run the bot with `pipenv run python ./src/main.py`**
 
 #### To use Docker do this:
-You can just run the image (`natsuwumi/poppi`*). Make sure to set to configure Poppi QTπ with a configuration file as per this documentation.
+You can just run the image (`natsuwumi/poppi`). Make sure to set to configure Poppi QTπ with a configuration file as per this documentation.
 
 The API runs on port 5000, so if you wish to use that make sure to publish that port.
 
 #### Configuring Poppi QTπ
-**TODO**
+Set the empty fields in the `config.json` file to your likings.
+
+If you do not have a DBL token you can set it to `debug` to disable DBL updates.
+
+If you have any questions, feel free to [open an issue](https://github.com/NatsumiHB/Poppi-QTpi/issues).
 
 #### If you wish to run Poppi QTπ without some specific configuration variables set, you can refer to this table to make the needed code changes:
 | Variable      | Where                                 |
