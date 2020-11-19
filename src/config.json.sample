@@ -1,0 +1,44 @@
+{
+  "prefix": "",
+  "owner_id": 0,
+  "token": "",
+  "dbl_token": "",
+  "db_password": "",
+  "db_hostname": "",
+  "profile_restraints": {
+    "max_nickname_length": 50,
+    "max_description_length": 300,
+    "max_avatar_url_length": 0
+  },
+  "empty_profile": {
+    "nickname": null,
+    "description": null,
+    "avatar_url": null,
+    "partner": null,
+    "last_daily": null,
+    "money": 0,
+    "inventory": []
+  },
+  "money_config": {
+    "currency": "\uD83D\uDCB4",
+    "daily_money": 200
+  },
+  "base_store_items": [
+    {
+      "id": 1,
+      "name": "Wedding Ring",
+      "price": 2000,
+      "emoji": "\uD83D\uDC8D",
+      "description": "Can be used to marry someone",
+      "max_amount": 1
+    },
+    {
+      "id": 2,
+      "name": "Heart",
+      "price": 500,
+      "emoji": "\u2764\uFE0F",
+      "description": "Just a nice-looking heart",
+      "max_amount": 1
+    }
+  ]
+}

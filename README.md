@@ -21,28 +21,7 @@ You can just run the image (`natsuwumi/poppi`*). Make sure to set to configure P
 The API runs on port 5000, so if you wish to use that make sure to publish that port.
 
 #### Configuring Poppi QTπ
-# TODO
-```json
-{
-  "prefix": "",
-  "owner_id": 0,
-  "token": "",
-  "dbl_token": "",
-
-  "db_password": "",
-  "db_hostname": "",
-
-  "currency": "",
-
-  "empty_profile": {
-    "nickname": null,
-    "description": null,
-    "avatar_url": null,
-    "last_daily": null,
-    "money": 0
-  }
-}
-```
+**TODO**
 
 #### If you wish to run Poppi QTπ without some specific configuration variables set, you can refer to this table to make the needed code changes:
 | Variable      | Where                                 |

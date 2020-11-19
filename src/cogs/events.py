@@ -34,25 +34,25 @@ class Events(commands.Cog):
         if isinstance(error, commands.MissingPermissions):
             error_message = "You are lacking permissions!"
 
-        if isinstance(error, commands.BotMissingPermissions):
+        elif isinstance(error, commands.BotMissingPermissions):
             error_message = "I am lacking the permissions to do that!"
 
-        if isinstance(error, commands.BadArgument) or isinstance(error, commands.BadUnionArgument):
+        elif isinstance(error, commands.BadArgument) or isinstance(error, commands.BadUnionArgument):
             error_message = "Bad argument provided! (Consult help for usage information)"
 
-        if isinstance(error, commands.MissingRequiredArgument):
+        elif isinstance(error, commands.MissingRequiredArgument):
             error_message = "Please provide all required arguments! (Consult help for usage information)"
 
-        if isinstance(error, commands.NSFWChannelRequired):
+        elif isinstance(error, commands.NSFWChannelRequired):
             error_message = "This command only works in NSFW channels!"
 
-        if isinstance(error, commands.CommandNotFound):
+        elif isinstance(error, commands.CommandNotFound):
             error_message = f"Unknown command called: {ctx.message.content}"
 
-        if isinstance(error, PoppiError):
+        elif isinstance(error, PoppiError):
             error_message = error
 
-        if isinstance(error, commands.CommandInvokeError):
+        elif isinstance(error, commands.CommandInvokeError):
             if isinstance(error.original, asyncio.TimeoutError):
                 error_message = "Command timed out!"
 
