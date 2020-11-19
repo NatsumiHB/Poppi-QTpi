@@ -43,9 +43,14 @@ class Poppi(commands.Bot):
         try:
             self.store_items = db.createCollection(name="store_items")
 
-            for item in self.config.config["base_store_items"]:
+            for i, item in enumerate(self.config.config["base_store_items"]):
                 store_item = self.store_items.createDocument()
-                store_item.set(item)
+
+                store_item.set({
+                    "id": i + 1,
+                    **item
+                })
+
                 store_item.save()
         except CreationError:
             self.store_items = db["store_items"]

@@ -18,14 +18,20 @@ class ProfileHelpers:
         self.client_session = aiohttp.ClientSession()
 
     def get_or_create_profile(self, member_id: int, create_on_not_found: bool = False):
-        try:
-            profile = self.profiles[member_id]
-        except DocumentNotFoundError:
+        profile = None
+
+        for search_profile in self.profiles.fetchAll():
+            if search_profile["id"] == str(member_id):
+                profile = search_profile
+
+        if profile is None:
             if create_on_not_found:
                 profile = self.profiles.createDocument()
-                profile._key = str(member_id)
 
-                profile.set(self.config.empty_profile)
+                profile.set({
+                    "id": str(member_id),
+                    **self.config.empty_profile
+                })
 
                 profile.save()
             else:
@@ -73,7 +79,7 @@ class ProfileHelpers:
         self.add_money(recipient_id, amount)
 
     def redeem_daily(self, member_id: int):
-        profile = self.get_or_create_profile(member_id, create_on_not_found=False)
+        profile = self.get_or_create_profile(member_id, create_on_not_found=True)
 
         delta_m = abs((datetime.utcnow() - datetime.strptime(profile.last_daily, "%Y-%m-%d %H:%M:%S.%f"))
                       .total_seconds()) / 60 / 60 if profile["last_daily"] is not None else 24 * 60
