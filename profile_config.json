@@ -1,0 +1,20 @@
+{
+  "profile_restraints": {
+    "max_nickname_length": 50,
+    "max_description_length": 300,
+    "max_avatar_url_length": 0
+  },
+  "empty_profile": {
+    "nickname": null,
+    "description": null,
+    "avatar_url": null,
+    "partner": null,
+    "last_daily": null,
+    "money": 0,
+    "inventory": []
+  },
+  "money_config": {
+    "currency": "\uD83D\uDCB4",
+    "daily_money": 200
+  }
+}

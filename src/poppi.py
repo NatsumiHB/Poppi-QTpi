@@ -31,43 +31,53 @@ class Poppi(commands.Bot):
             arangoURL=f"http://{self.config.config['db_hostname']}:8529"
         )
         try:
-            db = conn.createDatabase(name="poppi")
+            self.db = conn.createDatabase(name="poppi")
         except CreationError:
-            db = conn["poppi"]
+            self.db = conn["poppi"]
 
         try:
-            profiles = db.createCollection(name="profiles")
+            self.profiles = self.db.createCollection(name="profiles")
         except CreationError:
-            profiles = db["profiles"]
+            self.profiles = self.db["profiles"]
 
         try:
-            self.store_items = db.createCollection(name="store_items")
+            self.store_items = self.db.createCollection(name="store_items")
 
-            for i, item in enumerate(self.config.config["base_store_items"]):
-                store_item = self.store_items.createDocument()
-
-                store_item.set({
-                    "id": i + 1,
-                    **item
-                })
-
-                store_item.save()
+            self.load_store()
         except CreationError:
-            self.store_items = db["store_items"]
+            self.store_items = self.db["store_items"]
 
         # DB Helpers
-        self.profile_helpers = ProfileHelpers(profiles, self.store_items, self.config)
+        self.profile_helpers = ProfileHelpers(self.profiles, self.store_items, self.config)
 
         super().__init__(command_prefix=self.config.config["prefix"],
                          activity=discord.Game(name=f"{self.config.config['prefix']}help"),
                          owner_id=self.config.config["owner_id"],
                          **options)
 
+    def load_store(self):
+        for i, item in enumerate(self.config.config["base_store_items"]):
+            store_item = self.store_items.createDocument()
+
+            store_item.set({
+                "id": i + 1,
+                **item
+            })
+
+            store_item.save()
+
+    async def reload_config(self):
+        self.config = Config()
+
+        await self.profile_helpers.client_session.close()
+
+        self.profile_helpers = ProfileHelpers(self.profiles, self.store_items, self.config)
+
     # Updates the help embed and commands JSON to contain the most current cogs and commands
     def update_help(self):
         # Loop through all commands and cogs to generate help
         # Uses a generator in order to only return cogs with commands
-        blacklist = []
+        blacklist = ["Owner"]
         for cog_name in (cog
                          for cog
                          in self.cogs
@@ -122,7 +132,7 @@ class Poppi(commands.Bot):
             if len(self.get_cog(cog_name).get_commands()) > 0 and cog not in blacklist
         }
 
-    def update_store(self):
+    def update_store_embed(self):
         longest_id_len = len(max(
             (str(item["id"])
              for item

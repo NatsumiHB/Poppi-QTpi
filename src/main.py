@@ -12,6 +12,7 @@ from cogs.fun import Fun
 from cogs.help_and_information import HelpAndInformation
 from cogs.moderation import Moderation
 from cogs.money import Money
+from cogs.owner import Owner
 from cogs.profile import Profile
 from cogs.roles import Roles
 from poppi import Poppi
@@ -31,6 +32,7 @@ bot.add_cog(Roles(bot))
 bot.add_cog(Fun(bot))
 bot.add_cog(Profile(bot))
 bot.add_cog(Money(bot))
+bot.add_cog(Owner(bot))
 bot.add_cog(TopGG(bot))
 
 # Set up web API

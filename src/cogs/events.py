@@ -17,7 +17,7 @@ class Events(commands.Cog):
         self.bot.update_help()
 
         # Update store embed
-        self.bot.update_store()
+        self.bot.update_store_embed()
 
         # Log basic info
         logging.info(f"{self.bot.user.name} running!")
