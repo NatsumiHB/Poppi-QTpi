@@ -1,7 +1,6 @@
 from datetime import datetime
 
 import aiohttp
-from pyArango.theExceptions import DocumentNotFoundError
 
 from api_helpers import APIUtils
 from poppi_helpers import PoppiError
