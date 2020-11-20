@@ -27,14 +27,6 @@ If you do not have a DBL token you can set it to `debug` to disable DBL updates.
 
 If you have any questions, feel free to [open an issue](https://github.com/NatsumiHB/Poppi-QTpi/issues).
 
-#### If you wish to run Poppi QTπ without some specific configuration variables set, you can refer to this table to make the needed code changes:
-| Variable      | Where                                 |
-| :-----------: | :-----------------------------------: |
-| **token**     | main.py                               |
-| **prefix**    | main.py                               |
-| **owner_id**  | main.py; cogs/help_and_information.py |
-| **dbl_token** | cogs/TopGG.py                         |
-
 #### API Endpoints
 | Endpoint      | Result                              |
 | :-----------: | :---------------------------------: |
