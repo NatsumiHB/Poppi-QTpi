@@ -24,6 +24,11 @@ class Poppi(commands.Bot):
         # Create config
         self.config = Config()
 
+        # Intents
+        intents = discord.Intents.default()
+        intents.members = True
+        intents.presences = True
+
         # Database stuff for the profile system
         conn = Connection(
             username="root",
@@ -53,6 +58,7 @@ class Poppi(commands.Bot):
         super().__init__(command_prefix=self.config.config["prefix"],
                          activity=discord.Game(name=f"{self.config.config['prefix']}help"),
                          owner_id=self.config.config["owner_id"],
+                         intents=intents,
                          **options)
 
     def load_store(self):

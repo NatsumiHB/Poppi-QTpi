@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import command, is_owner
 
-from config import Config
 from poppi import Poppi
 from poppi_helpers import success_embed
 

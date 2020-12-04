@@ -58,8 +58,10 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
             embed.add_field(name="Roles", value=len(member.roles), inline=True)
 
-            if member.activity is not None:
-                embed.add_field(name="Current Activity", value=member.activity.details, inline=False)
+            if len(member.activities) != 0:
+                embed.add_field(name="Current Activities", value="\n".join(activity.name
+                                                                           for activity
+                                                                           in member.activities), inline=False)
 
         embed.add_field(name="Badges", value=", ".join(
             str(flag)[10:].replace("_", " ").title()
