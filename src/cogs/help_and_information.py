@@ -71,11 +71,15 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
         await ctx.send(embed=embed)
 
-    @command(help="Send a support DM to my owner", usage="[message]")
-    async def support(self, ctx: commands.Context, *, msg):
-        user = await self.bot.fetch_user(self.bot.owner_id)
-        await user.send(f"Support request from {ctx.author.name}#{ctx.author.discriminator} "
-                        f"({ctx.author.mention}, ID: {ctx.author.id}):"
-                        f"\n\n{msg}")
+    @command(help="Get a link to my GitHub repository", usage="")
+    async def source(self, ctx: commands.Context):
+        await ctx.send("https://poppi-bot.xyz/github")
 
-        await ctx.send(embed=success_embed())
+    # @command(help="Send a support DM to my owner", usage="[message]")
+    # async def support(self, ctx: commands.Context, *, msg):
+    #     user = await self.bot.fetch_user(self.bot.owner_id)
+    #     await user.send(f"Support request from {ctx.author.name}#{ctx.author.discriminator} "
+    #                     f"({ctx.author.mention}, ID: {ctx.author.id}):"
+    #                     f"\n\n{msg}")
+    #
+    #     await ctx.send(embed=success_embed())

@@ -179,5 +179,5 @@ class ProfileHelpers:
         member_profile["partner"] = None
         partner_profile["partner"] = None
 
-        member_profile.patch()
-        partner_profile.patch()
+        member_profile.save()
+        partner_profile.save()

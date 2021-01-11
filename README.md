@@ -19,12 +19,12 @@ it will need to run on the default port (8529)**
 and then run the bot with `pipenv run python ./src/main.py`**
 
 #### To use Docker do this:
-You can just run the image (`natsuwumi/poppi`). Make sure to set to configure Poppi QTπ with a configuration file as per this documentation.
+You can just run the image (`natsuwumi/poppi`). Make sure to mount the config file for Poppi QTπ to `/srv/poppi/config.json`.
 
 The API runs on port 5000, so if you wish to use that make sure to publish that port.
 
 #### Configuring Poppi QTπ
-Set the empty fields in the `config.json` file to your likings.
+Set the empty fields in the `config.json` file to your likings. You may also change defaults for profiles/money and store items in their respective files.
 
 If you do not have a DBL token you can set it to `debug` to disable DBL updates.
 

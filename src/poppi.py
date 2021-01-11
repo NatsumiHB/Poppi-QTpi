@@ -153,7 +153,6 @@ class Poppi(commands.Bot):
         )
 
         self.store_embed = PoppiEmbed() \
-            .set_thumbnail(url=self.user.avatar_url) \
             .add_field(name="Money",
                        value="\n".join(f"`{item['id']:<{longest_id_len}}: {item['name']:{longest_name_len}}` "
                                        f"({item['emoji']})"

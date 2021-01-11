@@ -17,23 +17,23 @@ class Profile(commands.Cog, name="Profile"):
         member = member or ctx.author
 
         profile = self.bot.profile_helpers.get_or_create_profile(member.id, create_on_not_found=True)
-        profile_author = f"{profile['nickname']} ({member.name})" if profile["nickname"] is not None else member.name
+        # profile_author = f"{profile['nickname']} ({member.name})" if profile["nickname"] is not None else member.name
+        #
+        # avatar_url = profile["avatar_url"]
 
-        avatar_url = profile["avatar_url"]
-
-        if avatar_url is None \
-                or await self.bot.profile_helpers.is_valid_avatar(avatar_url) is False:
-            avatar_url = member.avatar_url
+        # if avatar_url is None \
+        #         or await self.bot.profile_helpers.is_valid_avatar(avatar_url) is False:
+        #     avatar_url = member.avatar_url
 
         partner = (await self.bot.fetch_user(profile["partner"])).display_name if profile["partner"] is not None \
             else "None"
 
         await ctx.send(embed=PoppiEmbed()
-                       .set_author(name=f"Profile of {profile_author}", icon_url=member.avatar_url)
-                       .set_thumbnail(url=avatar_url)
-                       .add_field(name="Profile description",
-                                  value=profile["description"] or "No description set",
-                                  inline=False)
+                       .set_author(name=f"Profile of {member.display_name}")
+                       .set_thumbnail(url=member.avatar_url)
+                       # .add_field(name="Profile description",
+                       #            value=profile["description"] or "No description set",
+                       #            inline=False)
                        .add_field(name="Partner",
                                   value=partner,
                                   inline=True)
@@ -49,30 +49,30 @@ class Profile(commands.Cog, name="Profile"):
                                   ) or "Empty",
                                   inline=True))
 
-    @profile.command(help="Set your nickname", usage="[string]")
-    async def nickname(self, ctx: commands.Context, *, nickname: str):
-        await self.bot.profile_helpers.set_profile_key(ctx.author.id, "nickname", nickname)
-
-        await ctx.send(embed=success_embed(f"Successfully changed nickname to `{nickname}`"))
-
-    # The name of the command function can't be description as that would override a discord.py function
-    @profile.command(name="description", help="Set your description", usage="[string]")
-    async def set_description(self, ctx: commands.Context, *, description: str):
-        await self.bot.profile_helpers.set_profile_key(ctx.author.id, "description", description)
-
-        await ctx.send(embed=success_embed(f"Successfully changed description to `{description}`"))
-
-    @profile.command(help="Set your avatar", usage="[string|image]")
-    async def avatar(self, ctx: commands.Context, *, avatar_url: str = None):
-        if avatar_url is None:
-            if len(ctx.message.attachments) > 0:
-                avatar_url = ctx.message.attachments[0].url
-            else:
-                raise commands.MissingRequiredArgument([p for p in signature(self.avatar).parameters.values()][-1])
-
-        await self.bot.profile_helpers.set_profile_key(ctx.author.id, "avatar_url", avatar_url)
-
-        await ctx.send(embed=success_embed("Successfully changed avatar"))
+    # @profile.command(help="Set your nickname", usage="[string]")
+    # async def nickname(self, ctx: commands.Context, *, nickname: str):
+    #     await self.bot.profile_helpers.set_profile_key(ctx.author.id, "nickname", nickname)
+    #
+    #     await ctx.send(embed=success_embed(f"Successfully changed nickname to `{nickname}`"))
+    #
+    # # The name of the command function can't be description as that would override a discord.py function
+    # @profile.command(name="description", help="Set your description", usage="[string]")
+    # async def set_description(self, ctx: commands.Context, *, description: str):
+    #     await self.bot.profile_helpers.set_profile_key(ctx.author.id, "description", description)
+    #
+    #     await ctx.send(embed=success_embed(f"Successfully changed description to `{description}`"))
+    #
+    # @profile.command(help="Set your avatar", usage="[string|image]")
+    # async def avatar(self, ctx: commands.Context, *, avatar_url: str = None):
+    #     if avatar_url is None:
+    #         if len(ctx.message.attachments) > 0:
+    #             avatar_url = ctx.message.attachments[0].url
+    #         else:
+    #             raise commands.MissingRequiredArgument([p for p in signature(self.avatar).parameters.values()][-1])
+    #
+    #     await self.bot.profile_helpers.set_profile_key(ctx.author.id, "avatar_url", avatar_url)
+    #
+    #     await ctx.send(embed=success_embed("Successfully changed avatar"))
 
     @command(help="Marry someone", usage="[Member]")
     async def marry(self, ctx: commands.Context, member: discord.Member):
@@ -84,9 +84,11 @@ class Profile(commands.Cog, name="Profile"):
                                       self.bot.profile_helpers.get_item_by_name("Wedding Ring")["id"]) == 0:
             raise PoppiError("You need a wedding ring to marry someone!")
 
-        await ctx.send(f"{member.mention}, do you want to marry {ctx.author.mention}?")
+        await ctx.send(f"{member.mention}, do you want to marry {ctx.author.mention}? (yes/no)\n\n"
+                       f"**If someone else replies before you or you reply with something different than yes/no "
+                       f"the command will cancel. This will be fixed in a future update.**")
 
-        response = await self.bot.wait_for("message", check=check, timeout=10)
+        response = await self.bot.wait_for("message", check=check, timeout=20)
         if response.content.lower() == "yes":
             self.bot.profile_helpers.marry(ctx.author.id, member.id)
 
@@ -106,9 +108,11 @@ class Profile(commands.Cog, name="Profile"):
         def check(m: discord.Message):
             return m.author == ctx.author and m.channel == ctx.channel
 
-        await ctx.send(f"Are you sure you want to divorce from {partner.display_name}?")
+        await ctx.send(f"Are you sure you want to divorce from {partner.display_name}? (yes/no)\n\n"
+                       f"**If someone else replies before you or you reply with something different than yes/no "
+                       f"the command will cancel. This will be fixed in a future update.**")
 
-        response = await self.bot.wait_for("message", check=check, timeout=10)
+        response = await self.bot.wait_for("message", check=check, timeout=20)
         if response.content.lower() == "yes":
             self.bot.profile_helpers.divorce(ctx.author.id)
 
