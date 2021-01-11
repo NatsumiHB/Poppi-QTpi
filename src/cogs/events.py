@@ -24,8 +24,7 @@ class Events(commands.Cog):
         logging.info(f"Default prefix is \"{self.bot.command_prefix}\"")
         logging.info(f"Currently {len(self.bot.commands)} commands "
                      f"in a total of {len(self.bot.cogs)} cogs are registered")
-        logging.info(f"On {len(self.bot.guilds)} guilds "
-                     f"with a total of {sum(len(g.members) for g in self.bot.guilds)} members")
+        logging.info(f"On {len(self.bot.guilds)} guilds")
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
