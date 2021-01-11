@@ -1,5 +1,3 @@
-from asyncio.exceptions import TimeoutError
-
 import discord
 import discord.ext.commands
 from discord.ext import commands
@@ -59,8 +57,8 @@ class Roles(commands.Cog, name="Roles"):
 
         # Prompt the user to enter a hex color
         await ctx.send("Started the role creation process.\n"
-                        "**Which hex color should the role be?**\n"
-                        "(You can always abort by typing \"exit\")")
+                       "**Which hex color should the role be?**\n"
+                       "(You can always abort by typing \"exit\")")
         msg = await self.bot.wait_for("message", check=check, timeout=10)
         if await abort_check(msg):
             return
