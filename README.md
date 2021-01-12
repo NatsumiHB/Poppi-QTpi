@@ -10,7 +10,7 @@ Poppi QTπ is my all-in-one Discord bot with RP GIFs, moderation utilities and m
 To use Poppi QTπ, follow these steps:
 
 **No matter how you run Poppi QTπ, you will need to run an instance of ArangoDB (for non-Docker deployments
-it will need to run on the default port (8529)**
+it will need to run on the default port (8529))**
 
 #### To use Python directly, make sure you have Python 3.9 or newer and then follow these steps:
 1. Install required pip libraries by doing `pip install -r requirements.txt` in the root folder
