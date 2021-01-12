@@ -129,7 +129,7 @@ class Poppi(commands.Bot):
                        in self.get_cog(cog_name).walk_commands()}
             for cog_name
             in self.cogs
-            if len(self.get_cog(cog_name).get_commands()) > 0 and cog not in blacklist
+            if len(self.get_cog(cog_name).get_commands()) > 0 and cog_name not in blacklist
         }
 
     def update_store_embed(self):
