@@ -20,7 +20,7 @@ class APIUtils:
 
     async def get_json_response(self, url: str):
         async with self.client_session.get(url) as r:
-            if self.check_success(r.status):
+            if self.check_success(r.status) is False:
                 raise commands.CommandInvokeError("\nAPI call returned 404 (Not Found)")
 
             return await r.json()
