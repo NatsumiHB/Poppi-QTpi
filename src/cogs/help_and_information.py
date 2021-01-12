@@ -1,9 +1,10 @@
+import json
 import typing
 from typing import Union
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import command
+from discord.ext.commands import command, guild_only
 from disputils import BotEmbedPaginator
 
 from poppi import Poppi, PoppiEmbed
@@ -39,35 +40,42 @@ class HelpAndInformation(commands.Cog, name="Help and Information"):
 
     @command(help="Get information about someone", usage="[user]")
     async def userinfo(self, ctx: commands.Context, user: typing.Union[discord.User, FetchedUser] = None):
-        user = user or ctx.author
-        member = ctx.guild.get_member(user.id)
+        if user is None:
+            user = await self.bot.fetch_user(ctx.author.id)
+            color = ctx.author.color
+        else:
+            color = user.color
 
-        embed = discord.Embed(title=f"Userinfo for {user.display_name}", color=user.color) \
+        if ctx.guild is not None:
+            member = await ctx.guild.fetch_member(user.id)
+
+        embed = discord.Embed(title=f"Userinfo for {user.display_name}", color=color) \
             .set_thumbnail(url=user.avatar_url) \
             .add_field(name="ID", value=user.id, inline=False) \
-            .add_field(name="Tag", value=f"{user.name}#{user.discriminator}", inline=True) \
-            .add_field(name="Is Bot", value=user.bot, inline=True) \
+            .add_field(name="Tag", value=f"{user.name}#{user.discriminator}", inline=False) \
+            .add_field(name="Is Bot", value=user.bot, inline=False) \
             .add_field(name="Created at", value=str(user.created_at)[:-7], inline=False)
 
         if member is not None:
             embed.add_field(name="Joined at", value=str(member.joined_at)[:-7], inline=False)
-            embed.add_field(name="Online Status", value=member.raw_status.capitalize(), inline=True)
+            # embed.add_field(name="Online Status", value=member.raw_status.capitalize(), inline=False)
 
             if member.premium_since is not None:
-                embed.add_field(name="Boosting since", value=member.premium_since, inline=True)
+                embed.add_field(name="Boosting since", value=member.premium_since, inline=False)
 
-            embed.add_field(name="Roles", value=len(member.roles), inline=True)
+            embed.add_field(name="Roles", value=len(member.roles) - 1, inline=False)
 
             if len(member.activities) != 0:
                 embed.add_field(name="Current Activities", value="\n".join(activity.name
                                                                            for activity
                                                                            in member.activities), inline=False)
 
-        embed.add_field(name="Badges", value=", ".join(
-            str(flag)[10:].replace("_", " ").title()
-            for flag
-            in user.public_flags.all()
-        ))
+        if len(user.public_flags.all()) != 0:
+            embed.add_field(name="Badges", value=", ".join(
+                str(flag)[10:].replace("_", " ").title()
+                for flag
+                in user.public_flags.all()
+            ))
 
         await ctx.send(embed=embed)
 
