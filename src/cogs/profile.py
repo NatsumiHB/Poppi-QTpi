@@ -28,8 +28,7 @@ class Profile(commands.Cog, name="Profile"):
         partner = (await self.bot.fetch_user(profile["partner"])).display_name if profile["partner"] is not None \
             else "None"
 
-        await ctx.send(embed=PoppiEmbed()
-                       .set_author(name=f"Profile of {member.display_name}")
+        await ctx.send(embed=PoppiEmbed(title=f"Profile of {member.display_name}")
                        .set_thumbnail(url=member.avatar_url)
                        # .add_field(name="Profile description",
                        #            value=profile["description"] or "No description set",
