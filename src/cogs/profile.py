@@ -1,5 +1,3 @@
-from inspect import signature
-
 import discord
 from discord.ext import commands
 from discord.ext.commands import group, command

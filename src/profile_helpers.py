@@ -80,12 +80,13 @@ class ProfileHelpers:
     def redeem_daily(self, member_id: int):
         profile = self.get_or_create_profile(member_id, create_on_not_found=True)
 
-        delta_m = abs((datetime.utcnow() - datetime.strptime(profile.last_daily, "%Y-%m-%d %H:%M:%S.%f"))
-                      .total_seconds()) / 60 / 60 if profile["last_daily"] is not None else 24 * 60
+        delta = (datetime.utcnow() - datetime.strptime(profile.last_daily, "%Y-%m-%d %H:%M:%S.%f")) \
+                      .total_seconds() / 60 / 60 if profile["last_daily"] is not None else 24 * 60
 
-        if 24 * 60 > delta_m > 0:
-            raise PoppiError(f"You can next redeem your daily {self.config.money_config['currency']} "
-                             f"in {round(24 - delta_m)}h!")
+        if delta < 24:
+            rounded = round(24 - delta)
+            raise PoppiError(f"You can redeem your daily {self.config.money_config['currency']} "
+                             f"again in {f'~{rounded}h' if rounded > 0 else 'under one hour'}!")
 
         self.add_money(member_id, self.config.money_config["daily_money"])
 
