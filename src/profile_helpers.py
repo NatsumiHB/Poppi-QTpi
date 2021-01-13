@@ -83,7 +83,7 @@ class ProfileHelpers:
         delta_m = abs((datetime.utcnow() - datetime.strptime(profile.last_daily, "%Y-%m-%d %H:%M:%S.%f"))
                       .total_seconds()) / 60 / 60 if profile["last_daily"] is not None else 24 * 60
 
-        if delta_m < 24 * 60:
+        if 24 * 60 > delta_m > 0:
             raise PoppiError(f"You can next redeem your daily {self.config.money_config['currency']} "
                              f"in {round(24 - delta_m)}h!")
 
