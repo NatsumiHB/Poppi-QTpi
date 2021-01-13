@@ -1,14 +1,13 @@
-import json
 import typing
 from typing import Union
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import command, guild_only
+from discord.ext.commands import command
 from disputils import BotEmbedPaginator
 
 from poppi import Poppi, PoppiEmbed
-from poppi_helpers import FetchedUser, success_embed
+from poppi_helpers import FetchedUser
 
 
 class HelpAndInformation(commands.Cog, name="Help and Information"):
